@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/404',
+      path: '/404.html',
       component: () => import('@/components/404'),
       hidden: true
     },
@@ -23,7 +23,13 @@ export default new Router({
         path: 'header',
         name: 'vue_header',
         component: () => import('@/components/layout/Header')
-      }]
+      },
+      {
+        path: '*',
+        redirect: '/404.html',
+        hidden: true
+      }
+      ]
     }
   ]
 })
