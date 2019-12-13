@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/404.html',
-      component: () => import('@/components/404'),
+      component: () => import('@/page/404Page/index'),
       hidden: true
     },
     {
@@ -22,14 +22,14 @@ export default new Router({
       children: [{
         path: 'header',
         name: 'vue_header',
-        component: () => import('@/components/layout/Header')
-      },
-      {
-        path: '*',
-        redirect: '/404.html',
-        hidden: true
+        component: () => import('@/components/layout/header')
       }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/404.html',
+      hidden: true
     }
   ]
 })

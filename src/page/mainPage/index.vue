@@ -1,34 +1,40 @@
 <template>
-  <el-container>
-    <el-header><Header></Header></el-header>
+  <div class="div_main">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-header><v-header></v-header></el-header>
       <el-container>
-        <el-main>Main</el-main>
+        <el-aside width="200px">Aside</el-aside>
+        <el-container>
+          <el-main>Main</el-main>
+        </el-container>
+      </el-container>
+      <el-container>
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
 import Header from '@/components/layout/Header'
 export default {
   name: 'index.vue',
+  data: function () {
+    return {}
+  },
   components: {
-    Header
+    'v-header': Header
   }
 }
 </script>
 
 <style scoped>
-  body{
-    padding: 0px;
-    margin: 0px;
-  }
   .el-header, .el-footer {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
     text-align: center;
-    line-height: 60px;
+    line-height: 90px;
   }
 
   .el-aside {
