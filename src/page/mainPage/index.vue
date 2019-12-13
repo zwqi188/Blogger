@@ -3,13 +3,13 @@
     <el-container>
       <el-header><v-header></v-header></el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-aside width="300px"><v-aside></v-aside></el-aside>
         <el-container>
           <el-main>Main</el-main>
         </el-container>
       </el-container>
       <el-container>
-        <el-footer>Footer</el-footer>
+        <el-footer><v-footer></v-footer></el-footer>
       </el-container>
     </el-container>
   </div>
@@ -17,13 +17,17 @@
 
 <script>
 import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/footer'
+import Aside from '@/components/layout/aside'
 export default {
   name: 'index.vue',
   data: function () {
     return {}
   },
   components: {
-    'v-header': Header
+    'v-header': Header,
+    'v-footer': Footer,
+    'v-aside': Aside
   }
 }
 </script>
@@ -38,10 +42,9 @@ export default {
   }
 
   .el-aside {
-    background-color: #D3DCE6;
     color: #333;
     text-align: center;
-    line-height: 200px;
+    line-height: 300px;
   }
 
   .el-main {
