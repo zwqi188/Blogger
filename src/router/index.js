@@ -27,6 +27,11 @@ export default new Router({
       ]
     },
     {
+      path: '/editor.html',
+      component: () => import('@/page/tinymce/index'),
+      hidden: true
+    },
+    {
       path: '*',
       redirect: '/404.html',
       hidden: true

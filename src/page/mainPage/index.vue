@@ -1,15 +1,28 @@
 <template>
   <div class="div_main">
     <el-container>
-      <el-header><v-header></v-header></el-header>
+      <el-header>
+        <v-header></v-header>
+      </el-header>
+      <el-header>
+        <v-breadCrumb></v-breadCrumb>
+      </el-header>
       <el-container>
-        <el-aside width="300px"><v-aside></v-aside></el-aside>
         <el-container>
-          <el-main>Main</el-main>
+          <el-main>
+            <v-carousel></v-carousel>
+            <v-hotlist></v-hotlist>
+            <v-bloglist></v-bloglist>
+          </el-main>
         </el-container>
+        <el-aside width="350px">
+          <v-aside></v-aside>
+        </el-aside>
       </el-container>
       <el-container>
-        <el-footer><v-footer></v-footer></el-footer>
+        <el-footer>
+          <v-footer></v-footer>
+        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -19,6 +32,10 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/footer'
 import Aside from '@/components/layout/aside'
+import Carousel from '@/components/carousel'
+import BlogList from '@/components/bloglist'
+import hotList from '@/components/hotlist'
+import breadCrumb from '@/components/layout/breadcrumb'
 export default {
   name: 'index.vue',
   data: function () {
@@ -27,7 +44,11 @@ export default {
   components: {
     'v-header': Header,
     'v-footer': Footer,
-    'v-aside': Aside
+    'v-aside': Aside,
+    'v-carousel': Carousel,
+    'v-bloglist': BlogList,
+    'v-hotlist': hotList,
+    'v-breadCrumb': breadCrumb
   }
 }
 </script>

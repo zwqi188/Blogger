@@ -12,13 +12,8 @@
       <el-menu-item index="2">生活笔记</el-menu-item>
       <el-menu-item index="3">技术分享</el-menu-item>
       <el-menu-item index="4">福利专区</el-menu-item>
-      <el-menu-item index="5">关于博主</el-menu-item>
-      <el-submenu index="6" class="el_my_func">
-        <template slot="title"><el-avatar :size="40" :src="circleUrl"></el-avatar>我的</template>
-        <el-menu-item index="6-1">修改密码</el-menu-item>
-        <el-menu-item index="6-2">时间线</el-menu-item>
-        <el-menu-item index="6-3">退出</el-menu-item>
-      </el-submenu>
+      <el-menu-item index="5"><a href="/editor.html" target="_blank">投稿</a></el-menu-item>
+      <el-menu-item index="6">关于博主</el-menu-item>
     </el-menu>
   </el-header>
 </template>
