@@ -11,6 +11,7 @@
         <el-container>
           <el-main>
             <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+            <div>{{tinymceHtml}}</div>
           </el-main>
         </el-container>
         <el-aside width="350px">
@@ -55,10 +56,14 @@ export default {
         skin_url: 'static/tinymce/skins/ui/oxide',
         height: 800,
         plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
-        toolbar1: 'undo redo | bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote',
-        toolbar2: '| table | link image code | removeformat',
+        toolbar: 'undo redo | bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | table | link image code | removeformat',
         branding: false,
-        menubar: false
+        menubar: false,
+        images_upload_base_path: '',
+        images_upload_credentials: false,
+        automatic_uploads: false,
+        images_upload_url: 'http://localhost:9999/uploadImage.json',
+        file_picker_types: 'image'
       }
     }
   },
@@ -71,16 +76,13 @@ export default {
   },
   mounted () {
     tinymce.init({
-      theme: 'advanced',
-      relative_urls: false,
-      plugins: 'link unlink image, markettoimages, ***',
-      theme_advanced_buttons1: 'markettoimages,|,***'
     })
   },
   methods: {
     handleImgUpload (blobInfo, success, failure) {
       let formdata = new FormData()
       formdata.set('upload_file', blobInfo.blob())
+      console.log('handleImgUpload')
       // axios.post('/api/upload', formdata).then(res => {
       //     success(res.data.data.src)
       // }).catch(res => {
@@ -88,12 +90,15 @@ export default {
       // })
     },
     images_upload_handler: (blobInfo, success, failure) => {
+      console.log('images_upload_handler')
       this.handleImgUpload(blobInfo, success, failure)
     },
     file_picker_callback: function (callback, value, meta) {
       // Provide image and alt text for the image dialo
       // eslint-disable-next-line eqeqeq
-      if (meta.filetype == 'image') {
+      console.log('file_picker_callback')
+      if (meta.filetype === 'image') {
+
         // 触发input的click事件，并取得file对象
         // 进行ajax上传图片
         // 在上传成功的回调函数中，调用callback(uploadedImageUrl);
