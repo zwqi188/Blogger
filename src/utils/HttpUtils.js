@@ -1,3 +1,4 @@
+
 // get请求获取数据
 export function getData (url, sucCallback, failCallback) {
   this.$http.get(url).then(response => {
@@ -28,4 +29,8 @@ export function jsonP (url, sucCallback, failCallback) {
   }, response => {
     failCallback(response)
   })
+}
+
+export default {
+  postData
 }

@@ -12,6 +12,27 @@
           <el-main>
             <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
             <div>{{tinymceHtml}}</div>
+            <el-row>
+              <el-link>文章分类:</el-link><el-select v-model="articleType" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-row>
+            <el-row>
+              <el-link>是否匿名:</el-link>
+              <el-switch
+                v-model="isHidden"
+                active-color="#13ce66"
+                inactive-color="#ff4949">
+              </el-switch>
+            </el-row>
+            <el-row>
+              <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
+            </el-row>
           </el-main>
         </el-container>
         <el-aside width="350px">
@@ -44,12 +65,16 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/footer'
 import Aside from '@/components/layout/aside'
 import breadCrumb from '@/components/layout/breadcrumb'
+import RequestUrl from '@/utils/RequestUrl'
 
 export default {
   name: 'index',
   data () {
     return {
       tinymceHtml: '请输入内容',
+      articleType: 2,
+      options: [{'label': '生活剪影', 'value': 2}, {'label': '学习笔记', 'value': 1}, {'label': '福利专区', 'value': 3}],
+      isHidden: true,
       init: {
         language_url: 'static/tinymce/langs/zh_CN.js',
         language: 'zh_CN',
@@ -62,7 +87,7 @@ export default {
         images_upload_base_path: '',
         images_upload_credentials: false,
         automatic_uploads: false,
-        images_upload_url: 'http://localhost:9999/uploadImage.json',
+        images_upload_url: RequestUrl.SERVER_ADDRESS + RequestUrl.UPLOAD_IMAGE,
         file_picker_types: 'image'
       }
     }
@@ -75,8 +100,7 @@ export default {
     'v-breadCrumb': breadCrumb
   },
   mounted () {
-    tinymce.init({
-    })
+    tinymce.init({})
   },
   methods: {
     handleImgUpload (blobInfo, success, failure) {
@@ -103,6 +127,19 @@ export default {
         // 进行ajax上传图片
         // 在上传成功的回调函数中，调用callback(uploadedImageUrl);
       }
+    },
+    uploadArticleFromServer: () => {
+      let param = {
+        articleContent: this.tinymceHtml,
+        articleType: this.articleType,
+        articleTitle: 'test',
+        masterId: 1
+      }
+      this.$http.post(RequestUrl.SERVER_ADDRESS + RequestUrl.UPLOAD_ARTICLE, param, { emulateJSON: true }).then(succ => {
+        console.log(succ)
+      }, error => {
+        console.log(error)
+      })
     }
   }
 }
@@ -115,5 +152,9 @@ export default {
     width: 100%;
     text-align: center;
     line-height: 90px;
+  }
+  .el-row {
+    padding-top: 20px;
+    padding-left: 10px;
   }
 </style>
