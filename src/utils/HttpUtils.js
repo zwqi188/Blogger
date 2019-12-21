@@ -1,36 +1,47 @@
+import axios from 'axios'
+import RequestUrl from './RequestUrl'
 
-// get请求获取数据
-export function getData (url, sucCallback, failCallback) {
-  this.$http.get(url).then(response => {
-    sucCallback(response)
-  }, response => {
-    failCallback(response)
-  })
-}
-/**
- * post请求
- * @param url 要请求的URL地址
- * @param param 要发送的数据对象
- * @param 指定post提交的编码类型为 application/x-www-form-urlencoded
- * @param sucCallback
- * @param failCallback
- */
-export function postData (url, param, sucCallback, failCallback) {
-  this.$http.post(url, param, { emulateJSON: true }).then(response => {
-    sucCallback(response)
-  }, response => {
-    failCallback(response)
-  })
-}
-// jsonP请求
-export function jsonP (url, sucCallback, failCallback) {
-  this.$http.jsonp(url).then(response => {
-    sucCallback(response)
-  }, response => {
-    failCallback(response)
+let http = axios.create({
+  baseURL: RequestUrl.SERVER_ADDRESS,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  },
+  transformRequest: [function (data) {
+    let newData = ''
+    for (let k in data) {
+      if (data.hasOwnProperty(k) === true) {
+        newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&'
+      }
+    }
+    return newData
+  }]
+})
+
+function apiAxios (method, url, params, response) {
+  http({
+    method: method,
+    url: url,
+    data: method === 'POST' || method === 'PUT' ? params : null,
+    params: method === 'GET' || method === 'DELETE' ? params : null
+  }).then(function (res) {
+    response(res)
+  }).catch(function (err) {
+    response(err)
   })
 }
 
 export default {
-  postData
+  get: function (url, params, response) {
+    return apiAxios('GET', url, params, response)
+  },
+  post: function (url, params, response) {
+    return apiAxios('POST', url, params, response)
+  },
+  put: function (url, params, response) {
+    return apiAxios('PUT', url, params, response)
+  },
+  delete: function (url, params, response) {
+    return apiAxios('DELETE', url, params, response)
+  }
 }

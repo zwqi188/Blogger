@@ -35,7 +35,7 @@
             </el-row>
           </el-main>
         </el-container>
-        <el-aside width="350px">
+        <el-aside width="17%">
           <v-aside></v-aside>
         </el-aside>
       </el-container>
@@ -66,6 +66,7 @@ import Footer from '@/components/layout/footer'
 import Aside from '@/components/layout/aside'
 import breadCrumb from '@/components/layout/breadcrumb'
 import RequestUrl from '@/utils/RequestUrl'
+import HTTP from '@/utils/HttpUtils'
 
 export default {
   name: 'index',
@@ -129,16 +130,18 @@ export default {
       }
     },
     uploadArticleFromServer: () => {
-      let param = {
+      let params = {
         articleContent: this.tinymceHtml,
         articleType: this.articleType,
         articleTitle: 'test',
         masterId: 1
       }
-      this.$http.post(RequestUrl.SERVER_ADDRESS + RequestUrl.UPLOAD_ARTICLE, param, { emulateJSON: true }).then(succ => {
-        console.log(succ)
-      }, error => {
-        console.log(error)
+      HTTP.post(RequestUrl.UPLOAD_ARTICLE, params, response => {
+        if (response.status >= 200 && response.status < 300) {
+          console.log(response.data)
+        } else {
+          console.log(response.message)
+        }
       })
     }
   }
