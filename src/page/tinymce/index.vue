@@ -10,10 +10,12 @@
       <el-container>
         <el-container>
           <el-main>
+            <el-input v-model="articleTitle" placeholder="请输入文章标题"></el-input>
             <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
             <div>{{tinymceHtml}}</div>
             <el-row>
-              <el-link>文章分类:</el-link><el-select v-model="articleType" placeholder="请选择">
+              <el-link>文章分类:</el-link>
+              <el-select v-model="articleType" placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -70,9 +72,10 @@ import HTTP from '@/utils/HttpUtils'
 
 export default {
   name: 'index',
-  data () {
+  data: function () {
     return {
       tinymceHtml: '请输入内容',
+      articleTitle: '',
       articleType: 2,
       options: [{'label': '生活剪影', 'value': 2}, {'label': '学习笔记', 'value': 1}, {'label': '福利专区', 'value': 3}],
       isHidden: true,
@@ -104,43 +107,27 @@ export default {
     tinymce.init({})
   },
   methods: {
-    handleImgUpload (blobInfo, success, failure) {
-      let formdata = new FormData()
-      formdata.set('upload_file', blobInfo.blob())
-      console.log('handleImgUpload')
-      // axios.post('/api/upload', formdata).then(res => {
-      //     success(res.data.data.src)
-      // }).catch(res => {
-      //     failure('error')
-      // })
-    },
-    images_upload_handler: (blobInfo, success, failure) => {
-      console.log('images_upload_handler')
-      this.handleImgUpload(blobInfo, success, failure)
-    },
-    file_picker_callback: function (callback, value, meta) {
-      // Provide image and alt text for the image dialo
-      // eslint-disable-next-line eqeqeq
-      console.log('file_picker_callback')
-      if (meta.filetype === 'image') {
-
-        // 触发input的click事件，并取得file对象
-        // 进行ajax上传图片
-        // 在上传成功的回调函数中，调用callback(uploadedImageUrl);
+    uploadArticleFromServer: function () {
+      if (!this.articleTitle) {
+        alert('请输入文章标题')
+        return
       }
-    },
-    uploadArticleFromServer: () => {
+      if (!this.tinymceHtml) {
+        alert('请输入文章内容')
+        return
+      }
       let params = {
         articleContent: this.tinymceHtml,
         articleType: this.articleType,
-        articleTitle: 'test',
+        articleTitle: this.articleTitle,
         masterId: 1
       }
+      console.log(params)
       HTTP.post(RequestUrl.UPLOAD_ARTICLE, params, response => {
         if (response.status >= 200 && response.status < 300) {
-          console.log(response.data)
+          alert(response.data)
         } else {
-          console.log(response.message)
+          alert(response.message)
         }
       })
     }
