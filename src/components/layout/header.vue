@@ -1,8 +1,13 @@
 <template>
   <el-row class="css-header">
-    <el-col :span="2"><a href="#/main" class="css-title">记事本</a></el-col>
-    <el-col :span="20"><a href="#/main/hotlist">二级</a></el-col>
-    <el-col :span="2"><a href="#/main/hotlist">二级</a></el-col>
+    <el-col :span="3"><a href="#/main" class="css-title">记事本</a></el-col>
+    <el-col :span="18">
+      <a href="#/main/hotlist">发现</a>
+      <a href="#/main/hotlist">关注</a>
+      <a href="#/main/hotlist">分享</a>
+      <a href="#/main/hotlist">消息</a>
+    </el-col>
+    <el-col :span="3"><a href="#/main/hotlist">二级</a></el-col>
   </el-row>
 </template>
 
