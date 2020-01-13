@@ -8,32 +8,37 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/404.html',
+      path: '/404',
       component: () => import('@/page/404Page/index'),
       hidden: true
     },
     {
       path: '',
-      redirect: '/main.html'
+      redirect: '/main'
     },
     {
-      path: '/main.html',
+      path: '/main',
       component: MainPage,
       children: [{
-        path: 'header',
-        name: 'vue_header',
-        component: () => import('@/components/layout/header')
+        path: 'hotlist',
+        name: 'vue_hotlist',
+        component: () => import('@/components/hotlist')
+      },
+      {
+        path: 'detail',
+        name: 'vue_detail',
+        component: () => import('@/page/detailPage/index')
       }
       ]
     },
     {
-      path: '/editor.html',
+      path: '/editor',
       component: () => import('@/page/tinymce/index'),
       hidden: true
     },
     {
       path: '*',
-      redirect: '/404.html',
+      redirect: '/404',
       hidden: true
     }
   ]

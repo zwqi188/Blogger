@@ -10,9 +10,8 @@
       <el-container>
         <el-container>
           <el-main>
-            <v-carousel></v-carousel>
-            <v-hotlist></v-hotlist>
-            <v-bloglist></v-bloglist>
+             <a href="#/main/detail">二级</a>
+             <router-view/>
           </el-main>
         </el-container>
         <el-aside width="350px">

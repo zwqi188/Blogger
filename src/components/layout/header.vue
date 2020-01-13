@@ -1,21 +1,9 @@
 <template>
-  <el-header>
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="1">首页</el-menu-item>
-      <el-menu-item index="2">生活笔记</el-menu-item>
-      <el-menu-item index="3">技术分享</el-menu-item>
-      <el-menu-item index="4">福利专区</el-menu-item>
-      <el-menu-item index="5"><a href="/editor.html" target="_blank">投稿</a></el-menu-item>
-      <el-menu-item index="6">关于博主</el-menu-item>
-    </el-menu>
-  </el-header>
+  <el-row class="css-header">
+    <el-col :span="2"><a href="#/main" class="css-title">记事本</a></el-col>
+    <el-col :span="20"><a href="#/main/hotlist">二级</a></el-col>
+    <el-col :span="2"><a href="#/main/hotlist">二级</a></el-col>
+  </el-row>
 </template>
 
 <script>
@@ -38,7 +26,16 @@ export default {
 </script>
 
 <style scoped>
-.div_header{
+a {
+  text-decoration: none;
+}
+.css-title {
+  font-family: "Microsoft YaHei";
+  font-size: 32px;
+  font-weight: bold;
+  color: #EB6E5E;
+}
+.div_header {
   background-color: #409EFF;
 }
 .el_my_func {
