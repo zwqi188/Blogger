@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div class="div_inteview"><dl><dt>日访问</dt><dd>12</dd></dl></div>
-    <div class="div_inteview"><dl><dt>周访问</dt><dd>24</dd></dl></div>
-    <div class="div_inteview"><dl><dt>月访问</dt><dd>100</dd></dl></div>
-    <div class="div_inteview"><dl><dt>总访问</dt><dd>99</dd></dl></div>
   </div>
 </template>
 <script>

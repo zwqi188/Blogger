@@ -1,84 +1,55 @@
 <template>
-  <div class="div_main">
-    <el-container>
-      <el-header>
-        <v-header></v-header>
-      </el-header>
-      <el-container>
-        <el-container>
-          <el-main>
-             <a href="#/main/detail">二级</a>
-             <router-view/>
-          </el-main>
-        </el-container>
-        <el-aside width="350px">
-          <v-aside></v-aside>
-        </el-aside>
-      </el-container>
-      <el-container>
-        <el-footer>
-          <v-footer></v-footer>
-        </el-footer>
-      </el-container>
-    </el-container>
+  <div class="div-main css-width10">
+    <v-header></v-header>
   </div>
 </template>
 
 <script>
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/footer'
-import Aside from '@/components/layout/aside'
-import Carousel from '@/components/carousel'
-import BlogList from '@/components/bloglist'
-import hotList from '@/components/hotlist'
+import Header from '@/components/layout/header'
+
 export default {
   name: 'index.vue',
   data: function () {
     return {}
   },
   components: {
-    'v-header': Header,
-    'v-footer': Footer,
-    'v-aside': Aside,
-    'v-carousel': Carousel,
-    'v-bloglist': BlogList,
-    'v-hotlist': hotList
+    'v-header': Header
   }
 }
 </script>
 
-<style scoped>
-  .el-header, .el-footer {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    text-align: center;
-    line-height: 90px;
+<style>
+  .div-main {
+    margin-top: 30px;
   }
-
-  .el-aside {
-    color: #333;
-    text-align: center;
-    line-height: 300px;
-  }
-
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
+ .css-width1 {
+   width: 10%;
+ }
+ .css-width2 {
+   width: 20%;
+ }
+ .css-width3 {
+   width: 30%;
+ }
+ .css-width4 {
+   width: 40%;
+ }
+ .css-width5 {
+   width: 50%;
+ }
+ .css-width6 {
+   width: 60%;
+ }
+ .css-width7 {
+   width: 70%;
+ }
+ .css-width8 {
+   width: 80%;
+ }
+ .css-width9 {
+   width: 90%;
+ }
+ .css-width10 {
+   width: 100%;
+ }
 </style>
