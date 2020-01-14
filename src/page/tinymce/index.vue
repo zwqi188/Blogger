@@ -96,8 +96,7 @@ export default {
     Editor,
     'v-header': Header,
     'v-footer': Footer,
-    'v-aside': Aside,
-    'v-breadCrumb': breadCrumb
+    'v-aside': Aside
   },
   mounted () {
     tinymce.init({})
