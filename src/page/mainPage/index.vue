@@ -4,9 +4,6 @@
       <el-header>
         <v-header></v-header>
       </el-header>
-      <el-header>
-        <v-breadCrumb></v-breadCrumb>
-      </el-header>
       <el-container>
         <el-container>
           <el-main>
@@ -34,7 +31,6 @@ import Aside from '@/components/layout/aside'
 import Carousel from '@/components/carousel'
 import BlogList from '@/components/bloglist'
 import hotList from '@/components/hotlist'
-import breadCrumb from '@/components/layout/breadcrumb'
 export default {
   name: 'index.vue',
   data: function () {
@@ -46,8 +42,7 @@ export default {
     'v-aside': Aside,
     'v-carousel': Carousel,
     'v-bloglist': BlogList,
-    'v-hotlist': hotList,
-    'v-breadCrumb': breadCrumb
+    'v-hotlist': hotList
   }
 }
 </script>

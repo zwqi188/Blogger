@@ -29,15 +29,15 @@ export default new Router({
         name: 'vue_detail',
         component: () => import('@/page/detailPage/index')
       },
-        {
-          path: 'share',
-          name: 'vue_share',
-          component: () => import('@/components/hotlist')
-        }, {
-          path: 'discovery',
-          name: 'vue_discovery',
-          component: () => import('@/components/hotlist')
-        }
+      {
+        path: 'share',
+        name: 'vue_share',
+        component: () => import('@/components/hotlist')
+      }, {
+        path: 'discovery',
+        name: 'vue_discovery',
+        component: () => import('@/components/hotlist')
+      }
       ]
     },
     {

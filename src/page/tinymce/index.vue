@@ -4,9 +4,6 @@
       <el-header>
         <v-header></v-header>
       </el-header>
-      <el-header>
-        <v-breadCrumb></v-breadCrumb>
-      </el-header>
       <el-container>
         <el-container>
           <el-main>
@@ -66,7 +63,6 @@ import 'tinymce/plugins/textcolor'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/footer'
 import Aside from '@/components/layout/aside'
-import breadCrumb from '@/components/layout/breadcrumb'
 import RequestUrl from '@/utils/RequestUrl'
 import HTTP from '@/utils/HttpUtils'
 
