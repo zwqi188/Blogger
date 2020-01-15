@@ -1,9 +1,15 @@
 <template>
   <div class="css-header">
     <div class="css-width2">
-      <a href="#/main" class="css-title">记事本</a>
+      <div class="css-maintitle">
+        <a href="#/main" class="css-title">记事本</a>
+      </div>
+      <div class="css-maintitle">
+        <a href="#/main" class="css-subtitle">戚郑伟的个人博客</a>
+      </div>
+
     </div>
-    <div class="css-width5">
+    <div class="css-width6">
       <div class="css-title-memu">
         <a href="#/main/hotlist"><i class="el-icon-view"></i>发现</a>
         <a href="#/main/hotlist"><i class="el-icon-mobile"></i>关注</a>
@@ -11,7 +17,7 @@
         <a href="#/main/hotlist"><i class="el-icon-chat-dot-square"></i>消息</a>
       </div>
     </div>
-    <div class="css-width3">
+    <div class="css-width2">
       <div class="css-title-login">
         <ul class="first">
           <li class="menu"><el-avatar :size="45" :src="circleUrl"></el-avatar>
@@ -45,7 +51,7 @@ export default {
       console.log(key, keyPath)
     },
     gotoEditor () {
-      this.$router.push({ path: '/editor' })
+      this.$router.push({ path: '/main/editor' })
     }
   }
 }
@@ -54,6 +60,15 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+.css-maintitle {
+  width: 100%;
+}
+.css-subtitle {
+  font-family: 'tinymce-mobile', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
 }
 .css-title {
   font-family: "Microsoft YaHei";
@@ -73,12 +88,12 @@ a {
 }
 .css-title-memu a{
   float: left;
-  width: 15%;
+  width: 12%;
   color: #1a1a1a;
 }
 .css-title-memu a:active{
   float: left;
-  width: 25%;
+  width: 12%;
   color: #E96E5E;
 }
 .css-title-login {

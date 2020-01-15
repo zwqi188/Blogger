@@ -1,25 +1,22 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <div>博客列表</div>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-    </el-col>
-    <el-col :span="24">
-      <el-pagination
-        layout="prev, pager, next"
-        :total="50">
-      </el-pagination>
-    </el-col>
-  </el-row>
+  <div class="bods">
+    <v-carousel></v-carousel>
+    <div>博客列表</div>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
 </template>
 
 <script>
+import Carousel from '@/components/carousel'
 export default {
-  name: 'bloglist'
+  name: 'bloglist',
+  components: {
+    'v-carousel': Carousel
+  }
 }
 </script>
 

@@ -33,10 +33,16 @@ export default new Router({
         path: 'share',
         name: 'vue_share',
         component: () => import('@/components/hotlist')
-      }, {
+      },
+      {
         path: 'discovery',
         name: 'vue_discovery',
         component: () => import('@/components/hotlist')
+      },
+      {
+        path: 'editor',
+        name: 'vue_editor',
+        component: () => import('@/page/tinymce/index')
       }
       ]
     },

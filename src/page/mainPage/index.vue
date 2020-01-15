@@ -1,11 +1,18 @@
 <template>
-  <div class="div-main css-width10">
-    <v-header></v-header>
+  <div class="div-main">
+    <div class="css-width10">
+      <v-header></v-header>
+    </div>
+    <div class="css-width8 showbody">
+        <router-view/>
+    </div>
+
   </div>
 </template>
 
 <script>
 import Header from '@/components/layout/header'
+import Bloglist from '@/components/bloglist'
 
 export default {
   name: 'index.vue',
@@ -13,7 +20,8 @@ export default {
     return {}
   },
   components: {
-    'v-header': Header
+    'v-header': Header,
+    'v-bloglist': Bloglist
   }
 }
 </script>
@@ -52,4 +60,7 @@ export default {
  .css-width10 {
    width: 100%;
  }
+  .showbody {
+    margin: 0 auto;
+  }
 </style>

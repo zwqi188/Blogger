@@ -1,49 +1,26 @@
 <template>
   <div class='tinymce'>
-    <el-container>
-      <el-header>
-        <v-header></v-header>
-      </el-header>
-      <el-container>
-        <el-container>
-          <el-main>
-            <el-input v-model="articleTitle" placeholder="请输入文章标题"></el-input>
-            <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
-            <div>{{tinymceHtml}}</div>
-            <el-row>
-              <el-link>文章分类:</el-link>
-              <el-select v-model="articleType" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-row>
-            <el-row>
-              <el-link>是否匿名:</el-link>
-              <el-switch
-                v-model="isHidden"
-                active-color="#13ce66"
-                inactive-color="#ff4949">
-              </el-switch>
-            </el-row>
-            <el-row>
-              <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
-            </el-row>
-          </el-main>
-        </el-container>
-        <el-aside width="17%">
-          <v-aside></v-aside>
-        </el-aside>
-      </el-container>
-      <el-container>
-        <el-footer>
-          <v-footer></v-footer>
-        </el-footer>
-      </el-container>
-    </el-container>
+    <span class="tag-group-title">文章标题:</span>
+    <el-input v-model="articleTitle" placeholder="请输入文章标题"></el-input>
+    <span class="tag-group-title">文章正文:</span>
+    <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+    <div>{{tinymceHtml}}</div>
+    <el-link>文章分类:</el-link>
+    <el-select v-model="articleType" placeholder="请选择">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-link>是否匿名:</el-link>
+    <el-switch
+      v-model="isHidden"
+      active-color="#13ce66"
+      inactive-color="#ff4949">
+    </el-switch>
+    <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
   </div>
 </template>
 
@@ -131,15 +108,7 @@ export default {
 </script>
 
 <style scoped>
-  .el-header, .el-footer {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    text-align: center;
-    line-height: 90px;
-  }
-  .el-row {
-    padding-top: 20px;
-    padding-left: 10px;
+  .tag-group-title {
+    float: left;
   }
 </style>
