@@ -6,7 +6,6 @@
     <div class="css-width8 showbody">
         <router-view/>
     </div>
-
   </div>
 </template>
 
@@ -29,6 +28,9 @@ export default {
 <style>
   .div-main {
     margin-top: 30px;
+  }
+  a {
+    text-decoration: none;
   }
  .css-width1 {
    width: 10%;

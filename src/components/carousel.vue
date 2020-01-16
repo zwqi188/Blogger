@@ -1,17 +1,25 @@
 <template>
-  <div>
-    co
-    <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in imageList" :key="item">
-        <h3>{{ item }}</h3>
-      </el-carousel-item>
-    </el-carousel>
+  <div class="block">
+    <div class="css-carousel css-width7">
+      <el-carousel :interval="5000" trigger="click" height="220px">
+        <el-carousel-item v-for="item in imageList" :key="item">
+          <h3 class="small">{{ item }}</h3>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
+    <div class="css-recommend css-width3">
+      <v-recommend></v-recommend>
+    </div>
   </div>
 </template>
 
 <script>
+import Recommend from '@/components/recommend'
 export default {
   name: 'carousel',
+  components: {
+    'v-recommend': Recommend
+  },
   data () {
     return {
       imageList: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576518724394&di=6a63946a4181a269e01d8c0a5a2f4792&imgtype=0&src=http%3A%2F%2Fwww.16aspx.com%2Fcmsimages%2F20170217%2F926992019.jpg',
@@ -22,11 +30,21 @@ export default {
 </script>
 
 <style scoped>
+  .css-content div{
+    float: left;
+  }
+  .css-carousel{
+    float: left;
+  }
+  .css-recommend {
+    height: 100px;
+    float: left;
+  }
   .el-carousel__item h3 {
     color: #475669;
-    font-size: 18px;
+    font-size: 14px;
     opacity: 0.75;
-    line-height: 300px;
+    line-height: 150px;
     margin: 0;
   }
 

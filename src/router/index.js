@@ -43,6 +43,11 @@ export default new Router({
         path: 'editor',
         name: 'vue_editor',
         component: () => import('@/page/tinymce/index')
+      },
+      {
+        path: 'carousel',
+        name: 'vue_carousel',
+        component: () => import('@/components/carousel')
       }
       ]
     },

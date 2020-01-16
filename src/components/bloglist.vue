@@ -1,5 +1,5 @@
 <template>
-  <div class="bods">
+  <div>
     <v-carousel></v-carousel>
     <div>博客列表</div>
     <ul>
