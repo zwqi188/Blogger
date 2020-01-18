@@ -14,7 +14,7 @@ export default new Router({
     },
     {
       path: '',
-      redirect: '/main'
+      redirect: '/main/discovery'
     },
     {
       path: '/main',

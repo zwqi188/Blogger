@@ -2,7 +2,7 @@
   <div class="css-header">
     <div class="css-width2">
       <div class="css-maintitle">
-        <a href="#/main" class="css-title">记事本</a>
+        <a href="#/main" class="css-title">箴言</a>
       </div>
       <div class="css-maintitle">
         <a href="#/main" class="css-subtitle">戚郑伟的个人博客</a>

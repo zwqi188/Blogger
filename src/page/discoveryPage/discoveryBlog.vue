@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <div class="bloglist">
+      <ul>
+        <li v-for="item in blogList">
+          <div class="blogContent blogContent-left css-width8">
+            <div class="blog-title">{{item.title}}</div>
+            <div class="blog-ariticle">{{item.ariticle}}</div>
+            <div class="blog-status">  {{item.name}}
+              <i class="el-icon-chat-line-round">  {{item.like}}</i>
+              <i class="el-icon-star-on">  {{item.like}}</i></div>
+          </div>
+          <div class="blogContent blogContent-right css-width2">
+            <el-image
+              style="width: 120px; height: 110px"
+              :src="url"
+              :fit="fit"></el-image>
+          </div>
+        </li>
+      </ul>
+      <div class="blogPage">
+        <el-pagination
+          :page-size="20"
+          :pager-count="5"
+          layout="prev, pager, next"
+          :total="1000">
+        </el-pagination>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+
+export default {
+  name: 'discoveryBlog',
+  components: {
+  },
+  data () {
+    return {
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      blogList: [ {'name': '利好', 'ariticle': 'ariticledfashfiuarweytyruio3y4q59b6v  t89yuopdfysupiypso  hiosdfuyhosphuiopsh t5435324542gjhfgq bcuytb vuety vqy utcrut rct vfdguyc rtyugvvgf qvt yiuyqeiutieuqrtiuyittrytreuty', 'title': '张54354263465376576三', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '897809808907980987078086758三', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'}]
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .bloglist {
+    height: 120px;
+    display: block;
+  }
+ .bloglist li {
+   list-style: none;
+   height: 120px;
+   margin-left: 10px;
+ }
+ .blogContent {
+   float: left;
+   margin-top: 20px;
+   height: 120px;
+ }
+ .blogContent-left {
+   text-align: left;
+   margin-left: -40px;
+ }
+.blogContent-right {
+  float: right;
+}
+.blog-title{
+  font-family: "Arial Black";
+  font-size: 20px;
+  font-weight: bold;
+}
+.blog-ariticle{
+  margin-top: 3px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #969696;
+}
+.blog-status{
+  margin-top: 3px;
+  font-size: 14px;
+  color: #969696;
+}
+.blogPage {
+  display: block;
+  padding-top: 90px;
+}
+</style>

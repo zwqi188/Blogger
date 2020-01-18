@@ -1,7 +1,5 @@
 <template>
-  <el-footer>
-    <div class="div_footer">footer</div>
-  </el-footer>
+  <div class="div_footer">footer</div>
 </template>
 
 <script>
@@ -12,6 +10,6 @@ export default {
 
 <style scoped>
 .div_footer{
-  background-color: #409EFF;
+
 }
 </style>

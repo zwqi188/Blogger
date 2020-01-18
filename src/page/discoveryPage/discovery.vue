@@ -6,7 +6,7 @@
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
       </el-carousel>
-
+      <v-discoveryBlog></v-discoveryBlog>
     </div>
     <div class="css-recommend css-width3">
       <v-recommend></v-recommend>
@@ -16,10 +16,12 @@
 
 <script>
 import Recommend from '@/page/discoveryPage/recommend'
+import DiscoveryBlog from '@/page/discoveryPage/discoveryBlog'
 export default {
   name: 'discovery',
   components: {
-    'v-recommend': Recommend
+    'v-recommend': Recommend,
+    'v-discoveryBlog': DiscoveryBlog
   },
   data () {
     return {
