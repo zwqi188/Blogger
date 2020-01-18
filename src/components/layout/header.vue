@@ -11,7 +11,7 @@
     </div>
     <div class="css-width6">
       <div class="css-title-memu">
-        <a href="#/main/carousel"><i class="el-icon-view"></i>发现</a>
+        <a href="#/main/discovery"><i class="el-icon-view"></i>发现</a>
         <a href="#/main/hotlist"><i class="el-icon-mobile"></i>关注</a>
         <a href="#/main/hotlist"><i class="el-icon-share"></i>分享</a>
         <a href="#/main/hotlist"><i class="el-icon-chat-dot-square"></i>消息</a>

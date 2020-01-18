@@ -6,6 +6,7 @@
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
       </el-carousel>
+
     </div>
     <div class="css-recommend css-width3">
       <v-recommend></v-recommend>
@@ -14,9 +15,9 @@
 </template>
 
 <script>
-import Recommend from '@/components/recommend'
+import Recommend from '@/page/discoveryPage/recommend'
 export default {
-  name: 'carousel',
+  name: 'discovery',
   components: {
     'v-recommend': Recommend
   },

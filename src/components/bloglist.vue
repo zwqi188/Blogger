@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-carousel></v-carousel>
+    <v-discovery></v-discovery>
     <div>博客列表</div>
     <ul>
       <li>1</li>
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import Carousel from '@/components/carousel'
+import Discovery from '@/page/discoveryPage/discovery'
 export default {
   name: 'bloglist',
   components: {
-    'v-carousel': Carousel
+    'v-discovery': Discovery
   }
 }
 </script>

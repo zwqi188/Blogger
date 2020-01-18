@@ -37,17 +37,12 @@ export default new Router({
       {
         path: 'discovery',
         name: 'vue_discovery',
-        component: () => import('@/components/hotlist')
+        component: () => import('@/page/discoveryPage/discovery')
       },
       {
         path: 'editor',
         name: 'vue_editor',
         component: () => import('@/page/tinymce/index')
-      },
-      {
-        path: 'carousel',
-        name: 'vue_carousel',
-        component: () => import('@/components/carousel')
       }
       ]
     },
