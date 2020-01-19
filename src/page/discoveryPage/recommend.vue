@@ -6,7 +6,7 @@
     </div>
     <div class="recommend-list">
       <ul>
-        <li v-for="item in recommendAuthList">
+        <li v-for="item in recommendAuthList" :key="item">
           <div class="recommend-content css-width2">
             <el-avatar :size="45" :src="item.avatarUrl"></el-avatar>
           </div>
@@ -65,9 +65,9 @@ export default {
   padding-top: 20px;
 }
  .recommend-content{
-    float: left;
-   height: 70px;
- }
+     float: left;
+     height: 70px;
+   }
   .recommend-click{
     font-family: "Arial Black";
     font-size: 14px;

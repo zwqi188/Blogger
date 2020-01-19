@@ -6,7 +6,7 @@
     <div class="css-width8 showbody">
         <router-view/>
     </div>
-    <div class="css-width10">
+    <div class="css-width8 showbody">
       <v-footer></v-footer>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script>
 import Header from '@/components/layout/header'
-import Footer from '@/components/layout/footer'
+import Footer from '@/components/layout/foot'
 
 export default {
   name: 'index.vue',

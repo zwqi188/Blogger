@@ -2,7 +2,7 @@
   <div>
     <div class="bloglist">
       <ul>
-        <li v-for="item in blogList">
+        <li v-for="item in blogList" :key="item" @click="getBlogDetail(item.id)">
           <div class="blogContent blogContent-left css-width8">
             <div class="blog-title">{{item.title}}</div>
             <div class="blog-ariticle">{{item.ariticle}}</div>
@@ -42,7 +42,13 @@ export default {
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '897809808907980987078086758三', 'keyword': 12344, 'like': '43K'},
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'}]
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'}
+      ]
+    }
+  },
+  methods: {
+    getBlogDetail () {
+      this.$router.push({ path: '/main/detail' })
     }
   }
 }
@@ -87,7 +93,6 @@ export default {
   color: #969696;
 }
 .blogPage {
-  display: block;
-  padding-top: 90px;
+  padding-top: 190px;
 }
 </style>
