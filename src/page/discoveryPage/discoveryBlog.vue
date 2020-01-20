@@ -11,20 +11,24 @@
               <i class="el-icon-star-on">  {{item.like}}</i></div>
           </div>
           <div class="blogContent blogContent-right css-width2">
-            <el-image
-              style="width: 120px; height: 110px"
-              :src="url"
-              :fit="fit"></el-image>
+            <el-image style="width: 120px; height: 110px"
+              :src="url" :fit="fit"></el-image>
           </div>
         </li>
       </ul>
-      <div class="blogPage">
-        <el-pagination
-          :page-size="20"
-          :pager-count="5"
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
+    </div>
+    <div class="blogPage">
+      <div class="block">
+        <div class="css-footer">
+          <el-pagination :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000">
+          </el-pagination>
+          <div class="footer-relate css-width10">
+            关于箴言 | 联系我们 | 说明
+          </div>
+          <div class="footer-relate css-width10">
+            ©2019-2020 科技公司 / 箴言 / 沪ICP备645657657号9 /
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +46,12 @@ export default {
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '897809808907980987078086758三', 'keyword': 12344, 'like': '43K'},
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
+        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
         {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'}
       ]
     }
@@ -55,6 +65,15 @@ export default {
 </script>
 
 <style scoped>
+  .css-footer{
+    float: left;
+    height: 100px;
+  }
+  .footer-relate {
+    color: #969696;
+    text-align: left;
+    font-size: 14px;
+  }
   .bloglist {
     height: 120px;
     display: block;
@@ -93,6 +112,5 @@ export default {
   color: #969696;
 }
 .blogPage {
-  padding-top: 190px;
 }
 </style>

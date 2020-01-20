@@ -30,11 +30,6 @@ export default new Router({
         component: () => import('@/page/detailPage/index')
       },
       {
-        path: 'share',
-        name: 'vue_share',
-        component: () => import('@/components/hotlist')
-      },
-      {
         path: 'discovery',
         name: 'vue_discovery',
         component: () => import('@/page/discoveryPage/discovery')
@@ -43,6 +38,24 @@ export default new Router({
         path: 'editor',
         name: 'vue_editor',
         component: () => import('@/page/tinymce/index')
+      },
+      {
+        path: 'concern',
+        name: 'vue_concern',
+        component: () => import('@/page/concernPage/index')
+      },
+      {
+        path: 'share',
+        name: 'vue_share',
+        component: () => import('@/page/sharePage/index')
+      }, {
+        path: 'about',
+        name: 'vue_about',
+        component: () => import('@/page/aboutPage/index')
+      }, {
+        path: 'message',
+        name: 'vue_message',
+        component: () => import('@/page/messagePage/index')
       }
       ]
     },

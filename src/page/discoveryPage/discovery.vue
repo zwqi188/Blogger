@@ -17,6 +17,7 @@
 <script>
 import Recommend from '@/page/discoveryPage/recommend'
 import DiscoveryBlog from '@/page/discoveryPage/discoveryBlog'
+
 export default {
   name: 'discovery',
   components: {

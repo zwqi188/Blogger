@@ -12,20 +12,22 @@
     <div class="css-width6">
       <div class="css-title-memu">
         <a href="#/main/discovery"><i class="el-icon-view"></i>发现</a>
-        <a href="#/main/hotlist"><i class="el-icon-mobile"></i>关注</a>
-        <a href="#/main/hotlist"><i class="el-icon-share"></i>分享</a>
-        <a href="#/main/hotlist"><i class="el-icon-chat-dot-square"></i>消息</a>
+        <a href="#/main/concern"><i class="el-icon-mobile"></i>关注</a>
+        <a href="#/main/share"><i class="el-icon-share"></i>分享</a>
+        <a href="#/main/message"><i class="el-icon-chat-dot-square"></i>消息</a>
+        <a href="#/main/about"><i class="el-icon-crop">关于</i></a>
       </div>
     </div>
     <div class="css-width2">
       <div class="css-title-login">
         <ul class="first">
-          <li class="menu"><el-avatar :size="45" :src="circleUrl"></el-avatar>
+          <li class="menu"><el-avatar :size="45" :src="circleUrl"></el-avatar><i class="el-icon-caret-bottom"></i>
             <ul class="second">
               <li><i class="el-icon-s-home"></i>我的主页</li>
               <li><i class="el-icon-s-management"></i>收藏的文章</li>
               <li><i class="el-icon-user-solid"></i>个人信息</li>
               <li><i class="el-icon-s-help"></i>联系博主</li>
+              <li><i class="el-icon-error"></i>退出</li>
             </ul>
           </li>
           <li><el-button type="danger" round @click="gotoEditor()"><i class="el-icon-edit"></i>写文章</el-button></li>
@@ -115,7 +117,7 @@ li{
   position: absolute;
   left: 0px;
   display: none;
-  border: 1px solid #8a8f97;
+  background: white;
 }
 .second>li{
   display: block;

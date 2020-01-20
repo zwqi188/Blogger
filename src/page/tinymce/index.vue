@@ -38,7 +38,6 @@ import 'tinymce/plugins/wordcount'
 import 'tinymce/plugins/colorpicker'
 import 'tinymce/plugins/textcolor'
 import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/foot'
 import Aside from '@/components/layout/aside'
 import RequestUrl from '@/utils/RequestUrl'
 import HTTP from '@/utils/HttpUtils'
@@ -72,7 +71,6 @@ export default {
   components: {
     Editor,
     'v-header': Header,
-    'v-footer': Footer,
     'v-aside': Aside
   },
   mounted () {

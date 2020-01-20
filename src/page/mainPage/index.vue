@@ -6,15 +6,11 @@
     <div class="css-width8 showbody">
         <router-view/>
     </div>
-    <div class="css-width8 showbody">
-      <v-footer></v-footer>
-    </div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/layout/header'
-import Footer from '@/components/layout/foot'
 
 export default {
   name: 'index.vue',
@@ -22,8 +18,7 @@ export default {
     return {}
   },
   components: {
-    'v-header': Header,
-    'v-footer': Footer
+    'v-header': Header
   }
 }
 </script>
