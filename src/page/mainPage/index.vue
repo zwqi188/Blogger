@@ -3,7 +3,7 @@
     <div class="css-width10">
       <v-header></v-header>
     </div>
-    <div class="css-width8 showbody">
+    <div class="showbody">
         <router-view/>
     </div>
   </div>
@@ -62,5 +62,6 @@ export default {
  }
   .showbody {
     margin: 0 auto;
+    width: 1100px;
   }
 </style>
