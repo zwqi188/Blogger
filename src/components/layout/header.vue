@@ -79,7 +79,7 @@ export default {
   float: left;
 }
 .css-title-memu {
-  width: 100%;
+  width: 700px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: normal;
@@ -96,7 +96,7 @@ export default {
   color: #E96E5E;
 }
 .css-title-login {
-  width: 100%;
+  width: 240px;
 }
 .el-icon-edit{
   color: white;

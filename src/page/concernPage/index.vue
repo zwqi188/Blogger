@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="css-concern css-width4">
+    <div class="css-concern css-width3">
       <div class="infinite-list2">
         <div class="all-concern">全部关注</div>
       </div>
@@ -17,12 +17,12 @@
         </ul>
       </div>
     </div>
-    <div class="css-recommend css-width6">
-      <div class="recommend-content css-width2">
+    <div class="css-concern css-width7">
+      <div class="css-width2 css-recommend-man">
         <el-avatar :size="70" :src="user.avatarUrl"></el-avatar>
       </div>
-      <div class="recommend-content css-width6">
-        <div>{{user.name}}</div>
+      <div class="css-width8 css-recommend-man css-recommend-title">
+        <div class="recommend-man-name">{{user.name}}</div>
         <div class="recommend-maincontent">写了{{user.keyword}}字 . {{user.like}}喜欢</div>
       </div>
     </div>
@@ -82,5 +82,19 @@ export default {
   .recommend-maincontent{
     font-size: 14px;
     color: #969696;
+  }
+  .css-recommend-man{
+    float: left;
+  }
+  .recmmend-man-basic {
+    float: left;
+  }
+  .recommend-man-name {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .css-recommend-title {
+    text-align: left;
   }
 </style>

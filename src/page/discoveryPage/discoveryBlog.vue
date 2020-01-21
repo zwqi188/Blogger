@@ -20,7 +20,7 @@
     <div class="blogPage">
       <div class="block">
         <div class="css-footer">
-          <el-pagination :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000">
+          <el-pagination background :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000">
           </el-pagination>
           <div class="footer-relate css-width10">
             关于箴言 | 联系我们 | 说明
