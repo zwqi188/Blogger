@@ -1,26 +1,33 @@
 <template>
   <div class='tinymce'>
-    <span class="tag-group-title">文章标题:</span>
-    <el-input v-model="articleTitle" placeholder="请输入文章标题"></el-input>
-    <span class="tag-group-title">文章正文:</span>
-    <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
-    <div>{{tinymceHtml}}</div>
-    <el-link>文章分类:</el-link>
-    <el-select v-model="articleType" placeholder="请选择">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
+    <div class="css-width10 tinymce-label">
+      文章标题:
+    </div>
+    <div class="css-width10">
+      <el-input v-model="articleTitle" placeholder="请输入文章标题"></el-input>
+    </div>
+    <div class="css-width10 tinymce-label">
+      文章正文:
+    </div>
+    <div class="css-width10">
+      <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+    </div>
+    <div class="css-width10 tinymce-label">
+      文章分类:
+      <el-select v-model="articleType" placeholder="请选择">
+      <el-option v-for="item in articleTypeOptions"
+        :key="item.id"
+        :label="item.articleTypeName"
+        :value="item.articleTypeName">
       </el-option>
     </el-select>
-    <el-link>是否匿名:</el-link>
-    <el-switch
-      v-model="isHidden"
-      active-color="#13ce66"
-      inactive-color="#ff4949">
-    </el-switch>
-    <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
+    </div>
+    <div class="css-width10">
+
+    </div>
+    <div class="css-width10 tinymce-label">
+      <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
+    </div>
   </div>
 </template>
 
@@ -49,6 +56,7 @@ export default {
       tinymceHtml: '请输入内容',
       articleTitle: '',
       articleType: 2,
+      articleTypeOptions: [],
       options: [{'label': '生活剪影', 'value': 2}, {'label': '学习笔记', 'value': 1}, {'label': '福利专区', 'value': 3}],
       isHidden: true,
       init: {
@@ -76,7 +84,20 @@ export default {
   mounted () {
     tinymce.init({})
   },
+  created () {
+    this.getArticleType()
+  },
   methods: {
+    getArticleType: function () {
+      HTTP.post(RequestUrl.GET_ARTICLE_TYPE, {}, response => {
+        console.log('hihi' + JSON.stringify(response))
+        if (response.respCode === '1000') {
+          this.articleTypeOptions = response.data
+          console.log('---' + JSON.stringify(this.articleTypeOptions))
+        }
+      })
+    },
+
     uploadArticleFromServer: function () {
       if (!this.articleTitle) {
         alert('请输入文章标题')
@@ -106,7 +127,13 @@ export default {
 </script>
 
 <style scoped>
-  .tag-group-title {
-    float: left;
+  .tinymce-label {
+    text-align: left;
+  }
+  .tinymce {
+    margin-bottom: 50px;
+  }
+  .tinymce div{
+    margin-bottom: 10px;
   }
 </style>

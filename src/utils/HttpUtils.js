@@ -25,7 +25,11 @@ function apiAxios (method, url, params, response) {
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null
   }).then(function (res) {
-    response(res)
+    if (res.status >= 200 && res.status < 300) {
+      response(res.data)
+    } else {
+      response(res.message)
+    }
   }).catch(function (err) {
     response(err)
   })
