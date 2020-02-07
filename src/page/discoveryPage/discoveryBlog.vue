@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="bloglist">
+    <div class="css_blog_list">
       <ul>
         <li v-for="item in blogList" :key="item" @click="getBlogDetail(item.id)">
           <div class="blogContent blogContent-left css-width8">
             <div class="blog-title">{{item.title}}</div>
-            <div class="blog-ariticle">{{item.ariticle}}</div>
+            <div class="blog-article">{{item.article}}</div>
             <div class="blog-status">  {{item.name}}
               <i class="el-icon-chat-line-round">  {{item.like}}</i>
               <i class="el-icon-star-on">  {{item.like}}</i></div>
@@ -74,11 +74,11 @@ export default {
     text-align: left;
     font-size: 14px;
   }
-  .bloglist {
+  .css_blog_list {
     height: 120px;
     display: block;
   }
- .bloglist li {
+ .css_blog_list li {
    list-style: none;
    height: 120px;
    margin-left: 10px;
@@ -100,7 +100,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
 }
-.blog-ariticle{
+.blog-article{
   margin-top: 3px;
   line-height: 20px;
   font-size: 14px;

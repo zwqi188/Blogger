@@ -44,10 +44,7 @@ import 'tinymce/plugins/contextmenu'
 import 'tinymce/plugins/wordcount'
 import 'tinymce/plugins/colorpicker'
 import 'tinymce/plugins/textcolor'
-import Header from '@/components/layout/Header'
-import Aside from '@/components/layout/aside'
 import RequestUrl from '@/utils/RequestUrl'
-import HTTP from '@/utils/HttpUtils'
 
 export default {
   name: 'index',
@@ -77,9 +74,7 @@ export default {
     }
   },
   components: {
-    Editor,
-    'v-header': Header,
-    'v-aside': Aside
+    Editor
   },
   mounted () {
     tinymce.init({})
@@ -113,13 +108,13 @@ export default {
         masterId: 1
       }
       console.log(params)
-      HTTP.post(RequestUrl.UPLOAD_ARTICLE, params, response => {
-        if (response.status >= 200 && response.status < 300) {
-          alert(response.data)
-        } else {
-          alert(response.message)
-        }
-      })
+      // HTTP.post(RequestUrl.UPLOAD_ARTICLE, params, response => {
+      //   if (response.status >= 200 && response.status < 300) {
+      //     alert(response.data)
+      //   } else {
+      //     alert(response.message)
+      //   }
+      // })
     }
   }
 }
