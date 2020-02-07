@@ -17,8 +17,8 @@
       <el-select v-model="articleType" placeholder="请选择">
       <el-option v-for="item in articleTypeOptions"
         :key="item.id"
-        :label="item.articleTypeName"
-        :value="item.articleTypeName">
+        :label="item.name"
+        :value="item.id">
       </el-option>
     </el-select>
     </div>
@@ -56,8 +56,8 @@ export default {
       tinymceHtml: '请输入内容',
       articleTitle: '',
       articleType: 2,
-      articleTypeOptions: [],
-      options: [{'label': '生活剪影', 'value': 2}, {'label': '学习笔记', 'value': 1}, {'label': '福利专区', 'value': 3}],
+      articleTypeOptions: null,
+      options: [],
       isHidden: true,
       init: {
         language_url: 'static/tinymce/langs/zh_CN.js',
@@ -89,11 +89,10 @@ export default {
   },
   methods: {
     getArticleType: function () {
-      HTTP.post(RequestUrl.GET_ARTICLE_TYPE, {}, response => {
-        console.log('hihi' + JSON.stringify(response))
-        if (response.respCode === '1000') {
-          this.articleTypeOptions = response.data
-          console.log('---' + JSON.stringify(this.articleTypeOptions))
+      let url = RequestUrl.GET_ARTICLE_TYPE
+      this.http.post(url).then(res => {
+        if (res.code === '1000') {
+          this.articleTypeOptions = res.data
         }
       })
     },
