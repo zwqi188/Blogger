@@ -23,7 +23,7 @@
     </el-select>
     </div>
     <div class="css-width10">
-
+    {{tinymceHtml}}
     </div>
     <div class="css-width10 tinymce-label">
       <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
@@ -71,7 +71,7 @@ export default {
         images_upload_base_path: '',
         images_upload_credentials: false,
         automatic_uploads: false,
-        images_upload_url: RequestUrl.SERVER_ADDRESS + RequestUrl.UPLOAD_IMAGE,
+        images_upload_url: process.env.BASE_API + RequestUrl.UPLOAD_IMAGE,
         file_picker_types: 'image'
       }
     }
