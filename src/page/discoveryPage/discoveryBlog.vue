@@ -4,11 +4,11 @@
       <ul>
         <li v-for="item in blogList" :key="item" @click="getBlogDetail(item.id)">
           <div class="blogContent blogContent-left css-width8">
-            <div class="blog-title">{{item.title}}</div>
-            <div class="blog-article">{{item.article}}</div>
-            <div class="blog-status">  {{item.name}}
-              <i class="el-icon-chat-line-round">  {{item.like}}</i>
-              <i class="el-icon-star-on">  {{item.like}}</i></div>
+            <div class="blog-title">{{item.articleTitle}}</div>
+            <div class="blog-article">{{item.articleInfo}}</div>
+            <div class="blog-status">  {{item.userId}}
+              <i class="el-icon-chat-line-round">  {{item.articleCount}}</i>
+              <i class="el-icon-star-on">  {{item.articleCount}}</i></div>
           </div>
           <div class="blogContent blogContent-right css-width2">
             <el-image style="width: 120px; height: 110px"
@@ -20,7 +20,7 @@
     <div class="blogPage">
       <div class="block">
         <div class="css-footer">
-          <el-pagination background :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000">
+          <el-pagination background :page-size="pageIndex" :pager-count="5" layout="prev, pager, next" :total="pageCount">
           </el-pagination>
           <div class="footer-relate css-width10">
             关于箴言 | 联系我们 | 说明
@@ -34,29 +34,42 @@
   </div>
 </template>
 <script>
+import RequestUrl from '@/utils/RequestUrl'
 
 export default {
   name: 'discoveryBlog',
   components: {
   },
+  created () {
+    this.getBlogListFromServer()
+  },
   data () {
     return {
+      pageIndex: 1,
+      pageSize: 10,
+      pageCount: 0,
+      count: 0,
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      blogList: [ {'name': '利好', 'ariticle': 'ariticledfashfiuarweytyruio3y4q59b6v  t89yuopdfysupiypso  hiosdfuyhosphuiopsh t5435324542gjhfgq bcuytb vuety vqy utcrut rct vfdguyc rtyugvvgf qvt yiuyqeiutieuqrtiuyittrytreuty', 'title': '张54354263465376576三', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '897809808907980987078086758三', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'},
-        {'ariticle': 'ariticledfashfiuatiuyqeiutieuqrtiuyittrytreuty', 'title': '785685gfhgfdjhdgjtyru67', 'keyword': 12344, 'like': '43K'}
-      ]
+      blogList: null
     }
   },
   methods: {
+    getBlogListFromServer () {
+      let params = {
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
+      }
+      let url = RequestUrl.GET_BLOG_LIST
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.count = res.data.count
+          this.blogList = res.data.blogList
+          this.pageCount = res.data.count / this.pageSize
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
     getBlogDetail () {
       this.$router.push({ path: '/main/detail' })
     }

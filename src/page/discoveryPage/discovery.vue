@@ -3,7 +3,7 @@
     <div class="css-carousel css-width7">
       <el-carousel :interval="5000" trigger="click" height="220px">
         <el-carousel-item v-for="item in imageList" :key="item">
-          <h3 class="small">{{ item }}</h3>
+          <h3 class="small"><img class="banner_img" :src="item.pic" @click="dirTarget(item.dir)" /></h3>
         </el-carousel-item>
       </el-carousel>
       <v-discoveryBlog></v-discoveryBlog>
@@ -17,6 +17,8 @@
 <script>
 import Recommend from '@/page/discoveryPage/recommend'
 import DiscoveryBlog from '@/page/discoveryPage/discoveryBlog'
+import kangji from '@/assets/images/kangji.jpg'
+import theme from '@/assets/images/theme.jpg'
 
 export default {
   name: 'discovery',
@@ -24,16 +26,28 @@ export default {
     'v-recommend': Recommend,
     'v-discoveryBlog': DiscoveryBlog
   },
+  methods: {
+    dirTarget (dir) {
+      if (dir) {
+        window.location.href = dir
+      }
+    }
+  },
   data () {
     return {
-      imageList: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576518724394&di=6a63946a4181a269e01d8c0a5a2f4792&imgtype=0&src=http%3A%2F%2Fwww.16aspx.com%2Fcmsimages%2F20170217%2F926992019.jpg',
-        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576518724393&di=3389c210c1fdb96064558c2f3026748e&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01596058196af1a84a0e282bfcac74.jpg']
+      imageList: [{pic: kangji, dir: 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3'}, {pic: theme}]
     }
   }
 }
 </script>
 
 <style scoped>
+  .small {
+    background: white;
+  }
+  .banner_img {
+    border-radius: 10px;
+  }
   .css-content div{
     float: left;
   }

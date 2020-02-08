@@ -23,7 +23,6 @@
     </el-select>
     </div>
     <div class="css-width10">
-    {{tinymceHtml}}
     </div>
     <div class="css-width10 tinymce-label">
       <el-button type="primary" @click="uploadArticleFromServer()">发表</el-button>
@@ -83,7 +82,7 @@ export default {
     this.getArticleType()
   },
   methods: {
-    getArticleType: function () {
+    getArticleType () {
       let url = RequestUrl.GET_ARTICLE_TYPE
       this.http.post(url).then(res => {
         if (res.code === '1000') {
@@ -92,7 +91,7 @@ export default {
       })
     },
 
-    uploadArticleFromServer: function () {
+    uploadArticleFromServer () {
       if (!this.articleTitle) {
         alert('请输入文章标题')
         return
@@ -103,18 +102,21 @@ export default {
       }
       let params = {
         articleContent: this.tinymceHtml,
-        articleType: this.articleType,
+        articleTypeId: this.articleType,
         articleTitle: this.articleTitle,
-        masterId: 1
+        userId: 1
       }
-      console.log(params)
-      // HTTP.post(RequestUrl.UPLOAD_ARTICLE, params, response => {
-      //   if (response.status >= 200 && response.status < 300) {
-      //     alert(response.data)
-      //   } else {
-      //     alert(response.message)
-      //   }
-      // })
+      let url = RequestUrl.UPLOAD_ARTICLE
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message({
+            message: res.message,
+            type: 'success'
+          })
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   }
 }

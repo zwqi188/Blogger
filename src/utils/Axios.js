@@ -5,7 +5,7 @@ import qs from 'qs'
 
 let $http = axios.create({
   baseURL: process.env.BASE_API,
-  withCredentials: true,
+  withCredentials: false,
   timeout: 10000,
   validateStatus: function (status) {
     switch (status) {

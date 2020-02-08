@@ -5,26 +5,45 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行项目
 npm run dev
 
-# build for production with minification
+# 打包项目为war包
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# Nginx配置
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+	add_header Access-Control-Allow-Origin *;
+	add_header Access-Control-Allow-Headers X-Requested-With;
+	add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
 
-# run unit tests
-npm run unit
+    sendfile        on;
+    keepalive_timeout  65;
 
-# run e2e tests
-npm run e2e
+    server {
+        listen       80;
+        server_name  www.qzw.ink;
+		location / { 
+			proxy_pass http://127.0.0.1:8080/; 
+		}
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
 
-# run all tests
-npm test
-```
+}
+
+# host设置 C:\Windows\System32\drivers\etc
+ 127.0.0.1 www.qzw.ink
+
+# 上线须知
+ 修改prod.env.js,修改BASE_API地址为线上生产接口地址
+
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
