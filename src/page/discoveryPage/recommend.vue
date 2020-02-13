@@ -2,20 +2,26 @@
   <div class="css-recommend-auth">
     <div class="recommend-title">
       <div class="recommend-title-left css-width3">推荐作者</div>
-      <div class="recommend-title-right css-width3"><i class="el-icon-refresh"></i><a href="#">换一批</a></div>
+      <div class="recommend-title-right css-width3"><a href="#" @click="getRecommendUserFromServer()">换一批</a></div>
     </div>
     <div class="recommend-list">
       <ul>
-        <li v-for="item in recommendAuthList" :key="item">
+        <li v-for="item in recommendUser" :key="item">
           <div class="recommend-content css-width2">
             <el-avatar :size="45" :src="item.avatarUrl"></el-avatar>
           </div>
           <div class="recommend-content css-width6">
-            <div>{{item.name}}</div>
-            <div class="recommend-maincontent">写了{{item.keyword}}字 . {{item.like}}喜欢</div>
+            <div>{{item.userName}}</div>
+            <div class="recommend-maincontent">写了{{item.userWordNumber}}字  · {{item.userLike}}喜欢</div>
           </div>
           <div class="recommend-content css-width2 recommend-click">
-            + 关注
+            <el-button class="button-new-tag" size="small" @click="showInput">+ 关注</el-button>
+            <el-tag
+              :key="name"
+              closable
+              :type='success'>
+              已关注
+            </el-tag>
           </div>
         </li>
       </ul>
@@ -24,18 +30,31 @@
 </template>
 
 <script>
-import avatarUrl from '@/assets/images/avatar.jpg'
+import RequestUrl from '@/utils/RequestUrl'
 
 export default {
   name: 'recommend',
+  created () {
+    this.getRecommendUserFromServer()
+  },
   data () {
     return {
-      recommendAuthList: [
-        {'avatarUrl': avatarUrl, 'name': '张三', 'keyword': 12344, 'like': '43K'},
-        {'avatarUrl': avatarUrl, 'name': '李四', 'keyword': 54, 'like': '90'},
-        {'avatarUrl': avatarUrl, 'name': 'hahha', 'keyword': 5, 'like': '97'},
-        {'avatarUrl': avatarUrl, 'name': 'jkjl', 'keyword': 45, 'like': '93K'},
-        {'avatarUrl': avatarUrl, 'name': '4242', 'keyword': 65, 'like': '0'}]
+      recommendUser: null
+    }
+  },
+  methods: {
+    getRecommendUserFromServer () {
+      let params = {
+        userId: '123'
+      }
+      let url = RequestUrl.GET_RECOMMEND_USER
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.recommendUser = res.data
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   }
 }
@@ -49,6 +68,7 @@ export default {
   }
 .recommend-title-left{
   float: left;
+  padding-left: 20px;
 }
 .recommend-title-right{
   float: right;

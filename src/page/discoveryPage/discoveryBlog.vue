@@ -2,17 +2,18 @@
   <div>
     <div class="css_blog_list">
       <ul>
-        <li v-for="item in blogList" :key="item" @click="getBlogDetail(item.id)">
+        <li v-for="item in blogList" :key="item">
           <div class="blogContent blogContent-left css-width8">
-            <div class="blog-title">{{item.articleTitle}}</div>
+            <div class="blog-title" @click="getBlogDetail(item.id)">{{item.articleTitle}}</div>
             <div class="blog-article">{{item.articleInfo}}</div>
-            <div class="blog-status">  {{item.userId}}
-              <i class="el-icon-chat-line-round">  {{item.articleCount}}</i>
-              <i class="el-icon-star-on">  {{item.articleCount}}</i></div>
+            <div class="blog-status"> 作者：{{item.userName}}
+              <font-awesome-icon class="css_icon" icon="comments" fixed-width/>{{item.articleReplay}}回复
+              <font-awesome-icon class="css_icon" icon="thumbs-up" fixed-width/>{{item.articleLike}}点赞
+            </div>
           </div>
-          <div class="blogContent blogContent-right css-width2">
+          <div v-show="item.articlePic" class="blogContent blogContent-right css-width2">
             <el-image style="width: 120px; height: 110px"
-              :src="url" :fit="fit"></el-image>
+                      :src="item.articlePic" :fit="fit"></el-image>
           </div>
         </li>
       </ul>
@@ -20,12 +21,17 @@
     <div class="blogPage">
       <div class="block">
         <div class="css-footer">
-          <el-pagination background :page-size="pageIndex" :pager-count="5" layout="prev, pager, next" :total="pageCount">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :page-size="pageSize"
+            :current-page="currentPage"
+            :total="total"
+            layout="prev, pager, next">
           </el-pagination>
           <div class="footer-relate css-width10">
             关于箴言 | 联系我们 | 说明
           </div>
-          <div class="footer-relate css-width10">
+          <div class="footer-relate footer-relate2 css-width10">
             ©2019-2020 科技公司 / 箴言 / 沪ICP备645657657号9 /
           </div>
         </div>
@@ -38,18 +44,15 @@ import RequestUrl from '@/utils/RequestUrl'
 
 export default {
   name: 'discoveryBlog',
-  components: {
-  },
+  components: {},
   created () {
     this.getBlogListFromServer()
   },
   data () {
     return {
-      pageIndex: 1,
+      currentPage: 1,
       pageSize: 10,
-      pageCount: 0,
-      count: 0,
-      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      total: 0,
       blogList: null
     }
   },
@@ -57,73 +60,97 @@ export default {
     getBlogListFromServer () {
       let params = {
         pageSize: this.pageSize,
-        pageIndex: this.pageIndex
+        pageIndex: this.currentPage
       }
       let url = RequestUrl.GET_BLOG_LIST
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
-          this.count = res.data.count
+          this.total = res.data.count
           this.blogList = res.data.blogList
-          this.pageCount = res.data.count / this.pageSize
         } else {
           this.$message.error(res.message)
         }
       })
     },
     getBlogDetail () {
-      this.$router.push({ path: '/main/detail' })
+      this.$router.push({path: '/main/detail'})
+    },
+    handleCurrentChange (val) {
+      this.currentPage = val
+      this.getBlogListFromServer()
     }
   }
 }
 </script>
 
 <style scoped>
-  .css-footer{
+  .css-footer {
     float: left;
     height: 100px;
+    padding-top: 30px;
   }
+
   .footer-relate {
     color: #969696;
     text-align: left;
     font-size: 14px;
+    padding-top: 20px;
   }
+
+  .footer-relate2 {
+    padding-bottom: 60px;
+  }
+
   .css_blog_list {
     height: 120px;
     display: block;
   }
- .css_blog_list li {
-   list-style: none;
-   height: 120px;
-   margin-left: 10px;
- }
- .blogContent {
-   float: left;
-   margin-top: 20px;
-   height: 120px;
- }
- .blogContent-left {
-   text-align: left;
-   margin-left: -40px;
- }
-.blogContent-right {
-  float: right;
-}
-.blog-title{
-  font-family: "Arial Black";
-  font-size: 20px;
-  font-weight: bold;
-}
-.blog-article{
-  margin-top: 3px;
-  line-height: 20px;
-  font-size: 14px;
-  color: #969696;
-}
-.blog-status{
-  margin-top: 3px;
-  font-size: 14px;
-  color: #969696;
-}
-.blogPage {
-}
+
+  .css_blog_list li {
+    list-style: none;
+    height: 120px;
+    margin-left: 10px;
+  }
+
+  .blogContent {
+    float: left;
+    margin-top: 20px;
+    height: 120px;
+  }
+
+  .blogContent-left {
+    text-align: left;
+    margin-left: -40px;
+  }
+
+  .blogContent-right {
+    float: right;
+  }
+
+  .blog-title {
+    font-family: "Arial Black";
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .blog-article {
+    margin-top: 3px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #969696;
+  }
+
+  .blog-status {
+    margin-top: 3px;
+    font-size: 14px;
+    color: #969696;
+  }
+
+  .blog-status {
+    padding-top: 8px;
+  }
+  .css_icon {
+    padding-left: 10px;
+    padding-right: 5px;
+  }
 </style>
