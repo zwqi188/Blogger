@@ -4,12 +4,8 @@
       <div class="css-maintitle">
         <a href="#/main" class="css-title">箴言</a>
       </div>
-      <div class="css-maintitle">
-        <a href="#/main" class="css-subtitle">戚郑伟的个人博客</a>
-      </div>
-
     </div>
-    <div class="css-width6">
+    <div class="css-width5">
       <div class="css-title-memu">
         <a href="#/main/discovery"><i class="el-icon-view"></i>发现</a>
         <a href="#/main/concern"><i class="el-icon-mobile"></i>关注</a>
@@ -18,10 +14,11 @@
         <a href="#/main/about"><i class="el-icon-crop">关于</i></a>
       </div>
     </div>
-    <div class="css-width2">
+    <div class="css-width3">
       <div class="css-title-login">
         <ul class="first">
-          <li class="menu"><el-avatar :size="45" :src="circleUrl"></el-avatar><i class="el-icon-caret-bottom"></i>
+          <li class="menu" v-show="false">
+            <el-avatar :size="45" :src="circleUrl"></el-avatar><i class="el-icon-caret-bottom"></i>
             <ul class="second">
               <li><i class="el-icon-s-home"></i>我的主页</li>
               <li><i class="el-icon-s-management"></i>收藏的文章</li>
@@ -30,7 +27,13 @@
               <li><i class="el-icon-error"></i>退出</li>
             </ul>
           </li>
-          <li><el-button type="danger" round @click="gotoEditor()"><i class="el-icon-edit"></i>写文章</el-button></li>
+          <li>
+            <el-button-group>
+              <el-button type="primary" icon="el-icon-s-custom" @click="gotoLogin()">登录</el-button>
+              <el-button type="primary" icon="el-icon-user" @click="gotoSignIn()">注册</el-button>
+              <el-button type="danger" icon="el-icon-edit" @click="gotoEditor()">写文章</el-button>
+            </el-button-group>
+          </li>
         </ul>
       </div>
     </div>
@@ -54,6 +57,12 @@ export default {
     },
     gotoEditor () {
       this.$router.push({ path: '/main/editor' })
+    },
+    gotoSignIn () {
+      this.$router.push({path: '/sign_in/sign'})
+    },
+    gotoLogin () {
+      this.$router.push({path: '/sign_in/login'})
     }
   }
 }
@@ -96,7 +105,7 @@ export default {
   color: #E96E5E;
 }
 .css-title-login {
-  width: 240px;
+  width: 360px;
 }
 .el-icon-edit{
   color: white;

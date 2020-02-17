@@ -2,7 +2,10 @@
   <div class="css-recommend-auth">
     <div class="recommend-title">
       <div class="recommend-title-left css-width3">推荐作者</div>
-      <div class="recommend-title-right css-width3"><a href="#" @click="getRecommendUserFromServer()">换一批</a></div>
+      <div class="recommend-title-right css-width3">
+        <a href="#" @click="reGetRecommendUserFromServer()">
+        <font-awesome-icon class="css_icon" icon="telegram" fixed-width/>换一批</a>
+      </div>
     </div>
     <div class="recommend-list">
       <ul>
@@ -12,16 +15,11 @@
           </div>
           <div class="recommend-content css-width6">
             <div>{{item.userName}}</div>
-            <div class="recommend-maincontent">写了{{item.userWordNumber}}字  · {{item.userLike}}喜欢</div>
+            <div class="recommend-maincontent">写了{{item.userWordNumber}}个字  · {{item.userLike}}人喜欢</div>
           </div>
           <div class="recommend-content css-width2 recommend-click">
-            <el-button class="button-new-tag" size="small" @click="showInput">+ 关注</el-button>
-            <el-tag
-              :key="name"
-              closable
-              :type='success'>
-              已关注
-            </el-tag>
+            <el-button v-show="!item.hasConcern" class="button-new-tag" size="small" @click="showInput">+ 关注</el-button>
+            <el-tag v-show="item.hasConcern" :key="name" closable :type='success'>已关注</el-tag>
           </div>
         </li>
       </ul>
@@ -39,13 +37,15 @@ export default {
   },
   data () {
     return {
-      recommendUser: null
+      recommendUser: null,
+      recommendIndex: 1
     }
   },
   methods: {
     getRecommendUserFromServer () {
       let params = {
-        userId: '123'
+        userId: '1',
+        index: this.recommendIndex
       }
       let url = RequestUrl.GET_RECOMMEND_USER
       this.http.postForm(url, params).then(res => {
@@ -55,6 +55,10 @@ export default {
           this.$message.error(res.message)
         }
       })
+    },
+    reGetRecommendUserFromServer () {
+      this.recommendIndex = this.recommendIndex + 1
+      this.getRecommendUserFromServer()
     }
   }
 }

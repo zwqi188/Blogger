@@ -62,6 +62,6 @@ export default {
  }
   .showbody {
     margin: 0 auto;
-    width: 1100px;
+    width: 1000px;
   }
 </style>

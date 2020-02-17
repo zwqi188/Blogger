@@ -65,6 +65,21 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/sign_in',
+      component: () => import('@/page/signInPage/index'),
+      hidden: true,
+      children: [{
+        path: 'sign',
+        name: 'vue_sign',
+        component: () => import('@/page/signInPage/sign')
+      },
+      {
+        path: 'login',
+        name: 'vue_login',
+        component: () => import('@/page/signInPage/login')
+      }]
+    },
+    {
       path: '*',
       redirect: '/404',
       hidden: true
