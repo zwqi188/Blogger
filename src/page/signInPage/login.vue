@@ -14,7 +14,9 @@
 </template>
 
 <script>
-import SliderVerificationCode2 from '@/components/sliderVerificationCode/index'
+import SliderVerificationCode from '@/components/sliderVerificationCode/index'
+import MD5 from 'js-md5'
+import RequestUrl from '@/utils/RequestUrl'
 
 export default {
   name: 'login',
@@ -27,10 +29,9 @@ export default {
     }
   },
   components: {
-    'v-slider': SliderVerificationCode2
+    'v-slider': SliderVerificationCode
   },
   created () {
-    this.getCheckCodeFromServer()
   },
   methods: {
     handleClick (tab, event) {
@@ -40,11 +41,30 @@ export default {
       console.log('您验证结果为:', value)
     },
     login () {
+      if (this.loginName === '') {
+        this.$message.error('登录名不能为空')
+        return
+      }
+      if (this.password === '') {
+        this.$message.error('密码不能为空')
+        return
+      }
       if (!this.value) {
         this.$message.error('请拖动滑块解锁')
       }
-      console.log(this.value)
-      this.$message.error(this.value)
+      let params = {
+        userName: this.loginName,
+        userPassword: MD5(this.password)
+      }
+      console.log(params)
+      let url = RequestUrl.USER_LOGIN
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
 
   }

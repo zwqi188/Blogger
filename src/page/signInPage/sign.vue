@@ -2,13 +2,13 @@
   <div>
     <div class="sign-form">
       <el-input placeholder="用户名建议手机号或邮箱" v-model="loginName">
-        <template><i class="el-icon-user-solid"></i></template>
+        <template slot="prepend"><i class="el-icon-user-solid"></i></template>
       </el-input>
       <el-input placeholder="请输入密码" v-model="password" show-password>
-        <template><i class="el-icon-lock"></i></template>
+        <template slot="prepend"><i class="el-icon-lock"></i></template>
       </el-input>
       <el-input placeholder="请输入下方的验证码" v-model="varifyCode">
-        <template><i class="el-icon-picture-outline"></i></template>
+        <template slot="prepend"><i class="el-icon-picture-outline"></i></template>
       </el-input>
       <div>
         <img :src="imgCode" @click="getCheckCodeFromServer()" style="width: 100px;height: 35px;cursor: pointer; padding-top: 10px"/>
@@ -45,9 +45,8 @@ export default {
       this.imgCode = url + '?' + num
     },
     registerFromServer () {
-      console.log('--' + this.loginName)
       if (this.loginName === '') {
-        this.$message.error('用户名不能为空')
+        this.$message.error('登录名不能为空')
         return
       }
       if (this.password === '') {

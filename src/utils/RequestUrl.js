@@ -5,6 +5,8 @@ var requestUrl = {
   GET_ARTICLE_TYPE: '/sys/getArticleType.json',
   GET_RECOMMEND_USER: '/sys/getRecommendUser.json',
   GENERATE_RAND_CHECK_CODE: '/sys/generateRandCheckCode.json',
-  USER_REGISTER: '/sys/register.json'
+  USER_REGISTER: '/sys/register.json',
+  USER_LOGIN: '/sys//login.json',
+  LOGIN_REQUEST: '/sys/generateLoginRequest.json'
 }
 module.exports = requestUrl

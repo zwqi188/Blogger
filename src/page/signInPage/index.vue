@@ -47,7 +47,7 @@ export default {
   }
   .login_form {
     margin: 0 auto;
-    width: 200px;
+    width: 100px;
   }
   .css-width1 {
     width: 10%;
