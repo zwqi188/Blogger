@@ -13,9 +13,11 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 import $http from './utils/Axios.js'
+import $cookie from 'vue-cookies'
 
 // 定义全局变量
 Vue.prototype.http = $http
+Vue.prototype.cookie = $cookie
 library.add(fas, far, fab)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

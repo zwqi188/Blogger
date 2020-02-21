@@ -6,23 +6,24 @@
       </div>
       <div class="infinite-list">
         <ul>
-          <li v-for="item in recommendAuthList" :key="item" class="concern-li">
+          <li v-for="item in followList" :key="item" class="concern-li">
             <div class="recommend-content css-width2">
               <el-avatar :size="45" :src="item.avatarUrl"></el-avatar>
             </div>
             <div class="recommend-content css-width8">
-              <div>{{item.name}}</div>
+              <div @click="queryUser(item.id)">{{item.userName}}</div>
+              <el-tag :key="name" closable :type='success'  @close="unfollow(item.id)">已关注</el-tag>
             </div>
           </li>
         </ul>
       </div>
     </div>
-    <div class="css-concern css-width7">
+    <div class="css-concern css-width7" v-show="hasClick">
       <div class="css-width2 css-recommend-man">
         <el-avatar :size="70" :src="user.avatarUrl"></el-avatar>
       </div>
       <div class="css-width8 css-recommend-man css-recommend-title">
-        <div class="recommend-man-name">{{user.name}}</div>
+        <div class="recommend-man-name">{{user.userName}}</div>
         <div class="recommend-maincontent">写了{{user.keyword}}字 . {{user.like}}喜欢</div>
       </div>
     </div>
@@ -30,7 +31,8 @@
 </template>
 
 <script>
-import avatarUrl from '@/assets/images/avatar.jpg'
+import RequestUrl from '@/utils/RequestUrl'
+import Constant from '@/utils/Constant'
 
 export default {
   name: 'concernPage',
@@ -38,16 +40,52 @@ export default {
     return {
       count: 10,
       loading: false,
-      recommendAuthList: [
-        {'avatarUrl': avatarUrl, 'name': '张三', 'keyword': 12344, 'like': '43K'},
-        {'avatarUrl': avatarUrl, 'name': '李四', 'keyword': 54, 'like': '90'},
-        {'avatarUrl': avatarUrl, 'name': 'hahha', 'keyword': 5, 'like': '97'},
-        {'avatarUrl': avatarUrl, 'name': 'jkjl', 'keyword': 45, 'like': '93K'},
-        {'avatarUrl': avatarUrl, 'name': '4242', 'keyword': 65, 'like': '0'}],
-      user: {'avatarUrl': avatarUrl, 'name': '张三', 'keyword': '12344', 'like': '43K'}
+      loginId: '',
+      followList: null,
+      hasClick: false,
+      user: []
     }
   },
+  created () {
+    this.getfollow()
+  },
   methods: {
+    getUserId () {
+      let token = Constant.USER_ID_TOKEN
+      this.loginId = this.cookie.get(token)
+    },
+    getfollow () {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let params = {
+        userId: this.loginId
+      }
+      let url = RequestUrl.QUERY_FOLLOW
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.followList = res.data
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    queryUser (userId) {
+      this.hasClick = true
+      let params = {
+        userId: userId
+      }
+      let url = RequestUrl.QUERY_USER
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.user = res.data
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    }
   }
 }
 </script>
@@ -71,6 +109,9 @@ export default {
   }
   .infinite-list li {
     list-style: none;
+  }
+  .infinite-list ul li:hover {
+    color: #969696;
   }
   .recommend-content{
     float: left;

@@ -17,6 +17,7 @@
 import SliderVerificationCode from '@/components/sliderVerificationCode/index'
 import MD5 from 'js-md5'
 import RequestUrl from '@/utils/RequestUrl'
+import Constant from '@/utils/Constant'
 
 export default {
   name: 'login',
@@ -43,10 +44,12 @@ export default {
     login () {
       if (this.loginName === '') {
         this.$message.error('登录名不能为空')
+        this.value = false
         return
       }
       if (this.password === '') {
         this.$message.error('密码不能为空')
+        this.value = false
         return
       }
       if (!this.value) {
@@ -60,8 +63,13 @@ export default {
       let url = RequestUrl.USER_LOGIN
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
-          this.$message.success(res.message)
+          let token = Constant.USER_ID_TOKEN
+          // 默认浏览器关闭，自动清理
+          this.cookie.set(token, res.data)
+          this.$message.success(res.message + '，正在登录!')
+          setTimeout(() => { this.$router.push({path: '/main/discovery'}) }, 1000)
         } else {
+          this.value = false
           this.$message.error(res.message)
         }
       })

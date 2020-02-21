@@ -66,7 +66,7 @@ export default {
     },
     textColor: { // 滑块的文字颜色
       type: [String],
-      default: `#000`
+      default: `#EA6D61`
     }
   },
   watch: {

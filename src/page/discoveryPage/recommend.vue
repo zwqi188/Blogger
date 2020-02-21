@@ -18,8 +18,8 @@
             <div class="recommend-maincontent">写了{{item.userWordNumber}}个字  · {{item.userLike}}人喜欢</div>
           </div>
           <div class="recommend-content css-width2 recommend-click">
-            <el-button v-show="!item.hasConcern" class="button-new-tag" size="small" @click="showInput">+ 关注</el-button>
-            <el-tag v-show="item.hasConcern" :key="name" closable :type='success'>已关注</el-tag>
+            <el-button v-show="!item.hasConcern" class="button-new-tag" size="small" @click="follow(item.id)">+ 关注</el-button>
+            <el-tag v-show="item.hasConcern" :key="name" closable :type='success'  @close="unfollow(item.id)">已关注</el-tag>
           </div>
         </li>
       </ul>
@@ -29,6 +29,7 @@
 
 <script>
 import RequestUrl from '@/utils/RequestUrl'
+import Constant from '@/utils/Constant'
 
 export default {
   name: 'recommend',
@@ -38,27 +39,71 @@ export default {
   data () {
     return {
       recommendUser: null,
-      recommendIndex: 1
+      recommendIndex: 1,
+      loginId: ''
     }
   },
   methods: {
+    getUserId () {
+      let token = Constant.USER_ID_TOKEN
+      this.loginId = this.cookie.get(token)
+    },
     getRecommendUserFromServer () {
+      this.getUserId()
       let params = {
-        userId: '1',
+        userId: this.loginId,
         index: this.recommendIndex
       }
       let url = RequestUrl.GET_RECOMMEND_USER
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
           this.recommendUser = res.data
-        } else {
-          this.$message.error(res.message)
         }
       })
     },
     reGetRecommendUserFromServer () {
       this.recommendIndex = this.recommendIndex + 1
       this.getRecommendUserFromServer()
+    },
+    follow (followId) {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let params = {
+        followId: followId,
+        userId: this.loginId
+      }
+      let url = RequestUrl.FOLLOW
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+          this.getRecommendUserFromServer()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    unfollow (followId) {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let params = {
+        followId: followId,
+        userId: this.loginId
+      }
+      let url = RequestUrl.UNFOLLOW
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+          this.getRecommendUserFromServer()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   }
 }

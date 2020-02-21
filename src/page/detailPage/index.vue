@@ -1,36 +1,136 @@
 <template>
   <div>
     <div class="css-blogDetail">
-      <div class="blog-title">{{blogDetail.title}}</div>
-      <div class="recommend-list css-width3">
+      <div class="blog-title">{{articleDetail.articleTitle}}</div>
+      <div class="recommend-list css-width4">
         <div class="recommend-content css-width2">
-          <el-avatar :size="45" :src="blogDetail.avatarUrl"></el-avatar>
+          <el-avatar :size="45" :src="user.avatarUrl"></el-avatar>
         </div>
-        <div class="recommend-content css-width6">
-          <div class="css-blogDetailTitle">{{blogDetail.authName}}          <el-tag type="success" effect="plain">关注</el-tag></div>
-          <div class="recommend-maincontent">写了{{blogDetail.keyword}}字 . {{blogDetail.like}}喜欢</div>
+        <div class="recommend-content css-width8">
+          <div class="css-blogDetailTitle">{{user.userName}}<el-button class="button-new-tag" size="big" @click="follow(user.id)">+ 关注</el-button></div>
+          <div class="recommend-maincontent">{{articleDetail.createdAt}} . 字数 {{articleDetail.articleCount}}. 点赞 {{articleDetail.articleLike}}</div>
         </div>
       </div>
     </div>
-    <div class="recommend-content css-width10">
-      {{blogDetail.content}}
+    <div class="article_detail css-width10" v-html="articleDetail.articleContent">
     </div>
+    <div class="recommend-comment css-width10">
+      <v-comment></v-comment>
+    </div>
+    <el-menu collapse="true" class="article-function">
+      <el-menu-item index="1" @click="gotoLike(articleDetail.id)">
+        <font-awesome-icon icon="thumbs-up" size="lg" />
+        <span slot="title">点赞</span>
+      </el-menu-item>
+      <el-menu-item index="2" @click="gotoDisLike(articleDetail.id)">
+        <font-awesome-icon icon="thumbs-down" size="lg" />
+        <span slot="title">踩</span>
+      </el-menu-item>
+      <el-menu-item index="3" @click="gotoEdit()">
+        <i class="el-icon-setting"></i>
+        <span slot="title">未开发功能</span>
+      </el-menu-item>
+    </el-menu>
   </div>
 </template>
 
 <script>
-import avatarUrl from '@/assets/images/avatar.jpg'
+import RequestUrl from '@/utils/RequestUrl'
+import Constant from '@/utils/Constant'
+import CommonUtil from '@/utils/CommonUtil'
+import Comment from '@/components/comment/index'
 
 export default {
   name: 'detailPage',
   data () {
     return {
       msg: '详情页',
-      blogDetail: {'title': '《精英律师》：豆瓣评分5.3，恶评如潮，为何还有人一直在追', 'authName': '来自星星的你', 'avatarUrl': avatarUrl, 'content': 'vue 出现Elements in iteration expect to have &#x27;v-bind:key&#x27; directives问题 - 简书</title><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="description" content="搜尽各大神 最后得出原因是eslint检测出现bug 解决方法有两种 v-for 后添加 :key=&#x27;item&#x27; 在build处关闭eslint检测 ...(config.d..."/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@jianshu.com"/><meta property="fb:app_id" content="865829053512461"/><meta property="og:url" content="https://www.jianshu.com/p/2cf1a0736154"/><meta property="og:type" content="article"/><meta property="og:title" content="vue 出现Elements in iteration expect to have &#x27;v-bind:key&#x27; directives问题"/><meta property="og:description" content="搜尽各大神 最后得出原因是eslint检测出现bug 解决方法有两种 v-for 后添加 :key=&#x27;item&#x27; 在build处关闭eslint检测 ...(config.d...', 'keyword': 12344, 'like': '43K'}
+      articleId: '',
+      articleDetail: '',
+      user: '',
+      loginId: ''
     }
   },
+  components: {
+    'v-comment': Comment
+  },
+  created () {
+    this.getArticleDetail()
+  },
   methods: {
-
+    getUserId () {
+      let token = Constant.USER_ID_TOKEN
+      this.loginId = this.cookie.get(token)
+    },
+    getArticleDetail () {
+      // 将数据放在当前组件的数据内
+      this.articleId = this.$route.query.article_id
+      let params = {
+        articleId: this.articleId
+      }
+      let url = RequestUrl.GET_ARTICLE_DETAIL
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.articleDetail = res.data.articleDetail
+          this.articleDetail.createdAt = CommonUtil.convertTime(this.articleDetail.createdAt)
+          this.user = res.data.user
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    gotoEdit () {
+      this.$message.warning('暂不支持此功能！')
+    },
+    gotoLike (articleId) {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let params = {
+        articleId: articleId,
+        userId: this.loginId
+      }
+      let url = RequestUrl.THUMBS_UP
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+          this.getArticleDetail()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    gotoDisLike (articleId) {
+      this.$message.warning('暂不支持此功能')
+    },
+    follow (followId) {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let params = {
+        followId: followId,
+        userId: this.loginId
+      }
+      let url = RequestUrl.FOLLOW
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+          this.getArticleDetail()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    }
   }
 }
 </script>
@@ -52,6 +152,28 @@ export default {
   float: left;
   height: 70px;
 }
+.article_detail {
+  float: left;
+}
+.recommend-comment {
+  float: left;
+}
+.thumbs {
+  width: 100px;
+  float: left;
+}
+.thumbs:hover {
+  color: #EB6E5E;
+}
+.thumbs-right {
+  width: 100px;
+  float: right;
+}
+.recommend-thumbs {
+  float: left;
+  height: 70px;
+  color: #99a9bf;
+}
 .recommend-click{
   font-family: "Arial Black";
   font-size: 14px;
@@ -60,5 +182,14 @@ export default {
 .recommend-maincontent{
   font-size: 14px;
   color: #969696;
+}
+.article-function {
+  position: fixed;
+  left: 8%;
+  top: 30%;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

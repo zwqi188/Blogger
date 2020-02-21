@@ -44,6 +44,7 @@ import 'tinymce/plugins/wordcount'
 import 'tinymce/plugins/colorpicker'
 import 'tinymce/plugins/textcolor'
 import RequestUrl from '@/utils/RequestUrl'
+import Constant from '@/utils/Constant'
 
 export default {
   name: 'index',
@@ -51,6 +52,7 @@ export default {
     return {
       tinymceHtml: '请输入内容',
       articleTitle: '',
+      loginId: '',
       articleType: 2,
       articleTypeOptions: null,
       options: [],
@@ -82,6 +84,10 @@ export default {
     this.getArticleType()
   },
   methods: {
+    getUserId () {
+      let token = Constant.USER_ID_TOKEN
+      this.loginId = this.cookie.get(token)
+    },
     getArticleType () {
       let url = RequestUrl.GET_ARTICLE_TYPE
       this.http.post(url).then(res => {
@@ -92,6 +98,17 @@ export default {
     },
 
     uploadArticleFromServer () {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let ed = tinymce.activeEditor
+      let e = ed.getBody()
+      ed.selection.select(e)
+      let text = ed.selection.getContent({ 'format': 'text' })
+      let articleCount = text.length
+      let articleInfo = text.substring(0, 100) + '...'
       if (!this.articleTitle) {
         alert('请输入文章标题')
         return
@@ -104,15 +121,16 @@ export default {
         articleContent: this.tinymceHtml,
         articleTypeId: this.articleType,
         articleTitle: this.articleTitle,
-        userId: 1
+        articleCount: articleCount,
+        articleInfo: articleInfo,
+        userId: this.loginId
       }
       let url = RequestUrl.UPLOAD_ARTICLE
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
-          this.$message({
-            message: res.message,
-            type: 'success'
-          })
+          this.$message.success(res.message)
+          this.articleTitle = ''
+          this.tinymceHtml = ''
         } else {
           this.$message.error(res.message)
         }

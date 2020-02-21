@@ -72,8 +72,8 @@ export default {
         }
       })
     },
-    getBlogDetail () {
-      this.$router.push({path: '/main/detail'})
+    getBlogDetail (id) {
+      this.$router.push({path: '/main/detail', query: {article_id: id}})
     },
     handleCurrentChange (val) {
       this.currentPage = val
@@ -131,6 +131,9 @@ export default {
     font-family: "Arial Black";
     font-size: 20px;
     font-weight: bold;
+  }
+  .blog-title:hover {
+    text-decoration: underline;
   }
 
   .blog-article {
