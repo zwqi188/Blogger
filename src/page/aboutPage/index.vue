@@ -7,7 +7,7 @@
     <div class="css-write-commnet css-width10">
       <div class="comment-write css-width10">
         <div class="project-show css-width10">
-          <div class="project-title"><h4>业务网站:</h4></div>
+          <div class="project-title"><h4>门户网站:</h4></div>
           <div class="project-address"><h5><a href="https://github.com/zwqi188/Blogger.git">https://github.com/zwqi188/Blogger.git</a></h5></div>
           <div class="project-desc"><h5>描述：基于 vue-cli 和 element-ui 实现的个人博客网站。</h5>
             <h5>tinymce 富文本编辑器（功能强大、所见即所得的富文本编辑器）。</h5></div>

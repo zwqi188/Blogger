@@ -17,6 +17,10 @@ var requestUrl = {
   QUERY_FOLLOW: '/sys/queryfollowByUserId.json',
   QUERY_USER: '/sys/queryUser.json',
   QUERY_WORD: '/sys/queryWord.json',
-  PUBLISH_WORD: '/sys/publishWord.json'
+  PUBLISH_WORD: '/sys/publishWord.json',
+  UPDATE_USER: '/sys/updateUser.json',
+  UPDATE_USER_PASSWORD: '/sys/updatePassword.json',
+  PACKAGE_FILE: '/sys/packageFile.json',
+  CONCERN_BLOG: '/sys/getConcernBlog.json'
 }
 module.exports = requestUrl

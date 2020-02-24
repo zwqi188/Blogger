@@ -67,5 +67,4 @@ $http.postForm = function (url, data, config) {
   }
   return $http.post(url, data, config)
 }
-
 export default $http

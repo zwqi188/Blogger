@@ -24,7 +24,39 @@
       </div>
       <div class="css-width8 css-recommend-man css-recommend-title">
         <div class="recommend-man-name">{{user.userName}}</div>
-        <div class="recommend-maincontent">写了{{user.keyword}}字 . {{user.like}}喜欢</div>
+        <div class="recommend-maincontent">创作了{{user.keyword}}篇文章 . {{user.like}}人关注</div>
+      </div>
+      <div class="css-width10 css-recommend-detail">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+          <el-menu-item index="1">最新文章</el-menu-item>
+        </el-menu>
+      </div>
+      <div class="css-width10 css_blog_list">
+        <ul>
+          <li v-for="item in blogList" :key="item">
+            <div class="blogContent blogContent-left css-width8">
+              <div class="blog-title" @click="getBlogDetail(item.id)">{{item.articleTitle}}</div>
+              <div class="blog-article">{{item.articleInfo}}</div>
+              <div class="blog-status"> 作者：{{item.userName}}
+                <font-awesome-icon class="css_icon" icon="comments" fixed-width/>{{item.articleReplay}}回复
+                <font-awesome-icon class="css_icon" icon="thumbs-up" fixed-width/>{{item.articleLike}}点赞
+              </div>
+            </div>
+            <div v-show="item.articlePic" class="blogContent blogContent-right css-width2">
+              <el-image style="width: 120px; height: 110px"
+                        :src="item.articlePic" :fit="fit"></el-image>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="css-width10 css-footer">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size="pageSize"
+          :current-page="currentPage"
+          :total="total"
+          layout="prev, pager, next">
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -43,7 +75,13 @@ export default {
       loginId: '',
       followList: null,
       hasClick: false,
-      user: []
+      activeIndex: '1',
+      currentPage: 1,
+      pageSize: 10,
+      total: 0,
+      blogList: null,
+      user: [],
+      selectUser: ''
     }
   },
   created () {
@@ -74,6 +112,7 @@ export default {
     },
     queryUser (userId) {
       this.hasClick = true
+      this.selectUser = userId
       let params = {
         userId: userId
       }
@@ -81,6 +120,33 @@ export default {
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
           this.user = res.data
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+      this.getConcernBlogFromServer()
+    },
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleCurrentChange (val) {
+      this.currentPage = val
+      this.getConcernBlogFromServer()
+    },
+    getBlogDetail (id) {
+      this.$router.push({path: '/main/detail', query: {article_id: id}})
+    },
+    getConcernBlogFromServer () {
+      let params = {
+        pageSize: this.pageSize,
+        pageIndex: this.currentPage,
+        userId: this.selectUser
+      }
+      let url = RequestUrl.CONCERN_BLOG
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          this.total = res.data.count
+          this.blogList = res.data.blogList
         } else {
           this.$message.error(res.message)
         }
@@ -137,5 +203,67 @@ export default {
   }
   .css-recommend-title {
     text-align: left;
+  }
+  .css-recommend-detail {
+    padding-top: 80px;
+  }
+  .css_blog_list {
+    height: 120px;
+    display: block;
+  }
+
+  .css_blog_list li {
+    list-style: none;
+    height: 120px;
+    margin-left: 10px;
+  }
+  .blogContent {
+    float: left;
+    margin-top: 20px;
+    height: 120px;
+  }
+
+  .blogContent-left {
+    text-align: left;
+    margin-left: -40px;
+  }
+
+  .blogContent-right {
+    float: right;
+  }
+
+  .blog-title {
+    font-family: "Arial Black";
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .blog-title:hover {
+    text-decoration: underline;
+  }
+
+  .blog-article {
+    margin-top: 3px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #969696;
+  }
+
+  .blog-status {
+    margin-top: 3px;
+    font-size: 14px;
+    color: #969696;
+  }
+
+  .blog-status {
+    padding-top: 8px;
+  }
+  .css_icon {
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+  .css-footer {
+    float: left;
+    height: 100px;
+    padding-top: 30px;
   }
 </style>

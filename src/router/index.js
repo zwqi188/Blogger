@@ -56,6 +56,10 @@ export default new Router({
         path: 'message',
         name: 'vue_message',
         component: () => import('@/page/messagePage/index')
+      }, {
+        path: 'setting',
+        name: 'vue_setting',
+        component: () => import('@/page/settingPage/index')
       }
       ]
     },
