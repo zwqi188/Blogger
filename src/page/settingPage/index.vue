@@ -86,7 +86,7 @@
               <el-input placeholder="请确认新密码" v-model="updatePasswordForm.userPassword2" show-password></el-input>
             </el-form-item>
             <el-form-item class="css-width10">
-              <el-button type="primary" @click="updateUser(updatePasswordForm)">更改密码</el-button>
+              <el-button type="primary" @click="updatePassword(updatePasswordForm)">更改密码</el-button>
               <el-button @click="cleanUpdatePasswordForm()">清空</el-button>
             </el-form-item>
           </el-form>
@@ -162,7 +162,18 @@ export default {
         }
       })
     },
-    updateUser (updatePasswordForm) {
+    updateUser (form) {
+      form.userId = this.loginId
+      let url = RequestUrl.UPDATE_USER
+      this.http.postForm(url, form).then(res => {
+        if (res.code === '1000') {
+          this.$message.success(res.message)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    updatePassword (updatePasswordForm) {
       if (updatePasswordForm.userPassword !== updatePasswordForm.userPassword2) {
         this.$message.error('新输入的两次密码不一致')
       }
