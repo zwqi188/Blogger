@@ -6,7 +6,7 @@ var requestUrl = {
   GET_RECOMMEND_USER: '/sys/getRecommendUser.json',
   GENERATE_RAND_CHECK_CODE: '/sys/generateRandCheckCode.json',
   USER_REGISTER: '/sys/register.json',
-  USER_LOGIN: '/sys//login.json',
+  USER_LOGIN: '/sys/login.json',
   LOGIN_REQUEST: '/sys/generateLoginRequest.json',
   GET_ARTICLE_DETAIL: '/sys/getArticleDetail.json',
   THUMBS_UP: '/sys/thumbsUp.json',

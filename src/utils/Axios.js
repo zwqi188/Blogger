@@ -64,6 +64,7 @@ $http.postForm = function (url, data, config) {
   if (!config['headers']['Content-Type']) {
     data = qs.stringify(data)
     config['headers']['Content-Type'] = 'application/x-www-form-urlencoded'
+    config['withCredentials'] = true
   }
   return $http.post(url, data, config)
 }
