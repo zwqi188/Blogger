@@ -2,7 +2,7 @@
   <div>
     <div class="app-container">
       <el-col :span="12">
-        <img :src="img_404" alt="404" class="img-style">
+        <img :src="imgError" alt="404" class="img-style">
       </el-col>
       <el-col :span="12">
         <div style="margin-left: 100px;margin-top: 60px">
@@ -17,14 +17,13 @@
 </template>
 
 <script>
-// eslint-disable-next-line camelcase
-import img_404 from '@/assets/images/gif_404.gif'
+import imgError from '@/assets/images/gif_404.gif'
 
 export default {
   name: 'wrongPage',
   data () {
     return {
-      img_404
+      imgError
     }
   },
   methods: {

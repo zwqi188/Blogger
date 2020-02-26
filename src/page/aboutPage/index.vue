@@ -20,7 +20,7 @@
         </div>
         <div class="project-show css-width10">
           <div class="project-title"><h4>管理站点:</h4></div>
-          <div class="project-address"><h5>等待开发</h5></div>
+          <div class="project-address"><h5><a href="https://github.com/zwqi188/BloggerManager.git">https://github.com/zwqi188/BloggerManager.git</a></h5></div>
           <div class="project-desc"><h5>描述：基于 angularJs 和 bootstrap 实现的个人网站的管理站点。</h5>
             <h5>详细内容待定。</h5></div>
         </div>

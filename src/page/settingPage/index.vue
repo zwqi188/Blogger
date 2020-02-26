@@ -26,7 +26,14 @@
         <div class="css-width10 css-avatar">
           <div class="css-width2"><el-avatar :size="85" :src="avatarUrl"></el-avatar></div>
           <div class="css-width8 css-change-avatar">
-            <el-button type="primary" @click="openMessage()">修改头像</el-button></div>
+            <el-upload
+              :action="uploadUrl"
+              accept="image/jpeg,image/gif,image/png"
+              :limit="1"
+              :on-success="handleSucc">
+              <el-button size="small" type="primary">修改头像</el-button>
+            </el-upload>
+          </div>
         </div>
         <div class="css-width10 css-form">
           <el-form ref="form" label-width="80px">
@@ -120,6 +127,7 @@ export default {
       msg: '详情页',
       articleId: '',
       articleDetail: '',
+      uploadUrl: process.env.BASE_API + RequestUrl.UPLOAD_IMAGE,
       user: '',
       showIndex: 1,
       loginId: '',
@@ -135,6 +143,9 @@ export default {
     this.queryUser()
   },
   methods: {
+    handleSucc (file) {
+      this.avatarUrl = file.location
+    },
     getUserId () {
       let token = Constant.USER_ID_TOKEN
       this.loginId = this.cookie.get(token)
@@ -163,6 +174,7 @@ export default {
       })
     },
     updateUser (form) {
+      form.avatarUrl = this.avatarUrl
       form.userId = this.loginId
       let url = RequestUrl.UPDATE_USER
       this.http.postForm(url, form).then(res => {
