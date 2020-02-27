@@ -23,6 +23,8 @@ var requestUrl = {
   PACKAGE_FILE: '/sys/packageFile.json',
   CONCERN_BLOG: '/sys/getConcernBlog.json',
   QUERY_MESSAGE: '/sys/queryMessage.json',
-  DELETE_MESSAGE: '/sys/deleteMessage.json'
+  DELETE_MESSAGE: '/sys/deleteMessage.json',
+  GET_MESSAGE_COUNT: '/sys/getMessageCount.json',
+  UPDATE_READ_STATUS: '/sys/updateReadStatus.json'
 }
 module.exports = requestUrl

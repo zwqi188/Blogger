@@ -2,21 +2,25 @@
   <div class="css-setting css-width10">
     <div class="css-width2">
       <el-menu class="el-menu-vertical-demo">
-        <el-menu-item index="1" @click="changeShowIndex(1)">
-          <i class="el-icon-s-comment"></i>
-          <span slot="title">评论</span>
+        <el-menu-item index="1">
+          <el-badge :value="messageCount.comment" class="item">
+            <el-button size="small" @click="changeShowIndex(1)">评论</el-button>
+          </el-badge>
         </el-menu-item>
-        <el-menu-item index="2" @click="changeShowIndex(2)">
-          <i class="el-icon-files"></i>
-          <span slot="title">关注</span>
+        <el-menu-item index="2">
+          <el-badge :value="messageCount.follow" class="item" type="primary">
+            <el-button size="small" @click="changeShowIndex(2)">关注</el-button>
+          </el-badge>
         </el-menu-item>
-        <el-menu-item index="3" @click="changeShowIndex(3)">
-          <i class="el-icon-thumb"></i>
-          <span slot="title">点赞</span>
+        <el-menu-item index="3">
+          <el-badge :value="messageCount.thumbs" class="item">
+            <el-button size="small" @click="changeShowIndex(3)">点赞</el-button>
+          </el-badge>
         </el-menu-item>
-        <el-menu-item index="4" @click="changeShowIndex(4)">
-          <i class="el-icon-bangzhu"></i>
-          <span slot="title">其他</span>
+        <el-menu-item index="4">
+          <el-badge :value="messageCount.other" class="item" type="warning">
+            <el-button size="small" @click="changeShowIndex(4)">其他</el-button>
+          </el-badge>
         </el-menu-item>
       </el-menu>
     </div>
@@ -102,11 +106,12 @@ export default {
       commentList: [],
       followList: [],
       thumbsList: [],
-      otherList: []
+      otherList: [],
+      messageCount: {}
     }
   },
   mounted () {
-    this.getMessageFormServer(1)
+    this.getMessageCount()
   },
   methods: {
     handleSucc (file) {
@@ -118,9 +123,52 @@ export default {
     },
     changeShowIndex (index) {
       this.showIndex = index
-      this.getMessageFormServer(index)
+      this.getMessageFormServer()
     },
-    getMessageFormServer (messageType) {
+    getMessageCount () {
+      this.getUserId()
+      if (this.loginId === null) {
+        this.$message.warning('请先登录！')
+        return
+      }
+      let param = {
+        userId: this.loginId
+      }
+      let url = RequestUrl.GET_MESSAGE_COUNT
+      this.http.postForm(url, param).then(res => {
+        if (res.code === '1000') {
+          this.messageCount = res.data
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    readMessage () {
+      let param = {
+        userId: this.loginId,
+        messageType: this.showIndex
+      }
+      let url = RequestUrl.UPDATE_READ_STATUS
+      this.http.postForm(url, param).then(res => {
+        if (res.code === '1000') {
+          if (this.showIndex === 1) {
+            this.messageCount.comment = ''
+          }
+          if (this.showIndex === 2) {
+            this.messageCount.follow = ''
+          }
+          if (this.showIndex === 3) {
+            this.messageCount.thumbs = ''
+          }
+          if (this.showIndex === 4) {
+            this.messageCount.other = ''
+          }
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    getMessageFormServer () {
       this.getUserId()
       if (this.loginId === null) {
         this.$message.warning('请先登录！')
@@ -128,7 +176,7 @@ export default {
       }
       let param = {
         userId: this.loginId,
-        messageType: messageType
+        messageType: this.showIndex
       }
       let url = RequestUrl.QUERY_MESSAGE
       this.http.postForm(url, param).then(res => {
@@ -136,18 +184,19 @@ export default {
           for (let i = 0; i < res.data.length; i++) {
             res.data[i].createdAt = CommonUtil.convertTime(res.data[i].createdAt)
           }
-          if (messageType === 1) {
+          if (this.showIndex === 1) {
             this.commentList = res.data
           }
-          if (messageType === 2) {
+          if (this.showIndex === 2) {
             this.followList = res.data
           }
-          if (messageType === 3) {
+          if (this.showIndex === 3) {
             this.thumbsList = res.data
           }
-          if (messageType === 4) {
+          if (this.showIndex === 4) {
             this.otherList = res.data
           }
+          this.readMessage()
         } else {
           this.$message.error(res.message)
         }
@@ -160,7 +209,7 @@ export default {
       let url = RequestUrl.DELETE_MESSAGE
       this.http.postForm(url, param).then(res => {
         if (res.code === '1000') {
-          this.getMessageFormServer(this.showIndex)
+          this.getMessageFormServer()
           this.$message.success(res.message)
         } else {
           this.$message.error(res.message)
@@ -222,5 +271,8 @@ export default {
   }
   .css-follow {
     height: 50px;
+  }
+  .css-badge {
+
   }
 </style>

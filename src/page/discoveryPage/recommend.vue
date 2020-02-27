@@ -18,7 +18,7 @@
             <div class="recommend-maincontent">写了{{item.userWordNumber}}个字  · {{item.userLike}}人喜欢</div>
           </div>
           <div class="recommend-content css-width2 recommend-click">
-            <el-button v-show="!item.hasConcern" class="button-new-tag" size="small" @click="follow(item.id)">+ 关注</el-button>
+            <el-button v-show="!item.hasConcern" class="button-new-tag" size="small" @click="follow(item)">+ 关注</el-button>
             <el-tag v-show="item.hasConcern" :key="name" closable :type='success'  @close="unfollow(item.id)">已关注</el-tag>
           </div>
         </li>
@@ -65,15 +65,16 @@ export default {
       this.recommendIndex = this.recommendIndex + 1
       this.getRecommendUserFromServer()
     },
-    follow (followId) {
+    follow (follow) {
       this.getUserId()
       if (this.loginId === null) {
         this.$message.warning('请先登录！')
         return
       }
       let params = {
-        followId: followId,
-        userId: this.loginId
+        followId: follow.id,
+        userId: this.loginId,
+        followName: follow.userName
       }
       let url = RequestUrl.FOLLOW
       this.http.postForm(url, params).then(res => {
