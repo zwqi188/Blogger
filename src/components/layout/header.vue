@@ -10,7 +10,7 @@
         <a href="#/main/discovery"><i class="el-icon-view"></i>发现</a>
         <a href="#/main/concern"><i class="el-icon-mobile"></i>关注</a>
 <!--        <a href="#/main/share"><i class="el-icon-share"></i>分享</a>-->
-<!--        <a href="#/main/message"><i class="el-icon-chat-dot-square"></i>消息</a>-->
+        <a href="#/main/message"><i class="el-icon-chat-dot-square"></i>消息</a>
         <a href="#/main/about"><i class="el-icon-crop">关于</i></a>
       </div>
     </div>

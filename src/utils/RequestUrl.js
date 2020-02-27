@@ -21,6 +21,8 @@ var requestUrl = {
   UPDATE_USER: '/sys/updateUser.json',
   UPDATE_USER_PASSWORD: '/sys/updatePassword.json',
   PACKAGE_FILE: '/sys/packageFile.json',
-  CONCERN_BLOG: '/sys/getConcernBlog.json'
+  CONCERN_BLOG: '/sys/getConcernBlog.json',
+  QUERY_MESSAGE: '/sys/queryMessage.json',
+  DELETE_MESSAGE: '/sys/deleteMessage.json'
 }
 module.exports = requestUrl
