@@ -26,9 +26,9 @@
         <font-awesome-icon icon="thumbs-down" size="lg" />
         <span slot="title">踩</span>
       </el-menu-item>
-      <el-menu-item index="3" @click="gotoEdit()">
-        <i class="el-icon-setting"></i>
-        <span slot="title">未开发功能</span>
+      <el-menu-item index="3" @click="gotoEdit(articleDetail.id)">
+        <i class="el-icon-edit"></i>
+        <span slot="title">编辑</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -79,8 +79,9 @@ export default {
         }
       })
     },
-    gotoEdit () {
-      this.$message.warning('暂不支持此功能！')
+    gotoEdit (articleId) {
+      this.$router.push({path: '/main/editor', query: {article_id: articleId}})
+      this.$message.info('稍等，正在加载编辑器！')
     },
     gotoLike (articleId) {
       this.getUserId()

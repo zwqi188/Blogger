@@ -15,7 +15,7 @@
         <div class="project-show css-width10">
           <div class="project-title"><h4>后台:</h4></div>
           <div class="project-address"><h5><a href="https://github.com/zwqi188/Blogger.git">https://github.com/zwqi188/BloggerService.git</a></h5></div>
-          <div class="project-desc"><h5>描述：基于 bootstrap 实现的个人博客网站后台。</h5>
+          <div class="project-desc"><h5>描述：基于 springboot 实现的个人博客网站后台。</h5>
             <h5>数据访问使用JPA的方式。</h5></div>
         </div>
         <div class="project-show css-width10">

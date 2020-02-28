@@ -74,6 +74,7 @@ export default {
     },
     gotoEditor () {
       this.$router.push({ path: '/main/editor' })
+      this.$message.info('稍等，正在加载编辑器！')
     },
     gotoSignIn () {
       this.$router.push({path: '/sign_in/sign'})
