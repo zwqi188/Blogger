@@ -123,18 +123,16 @@ export default {
   },
   created () {
     this.getArticleType()
-    this.getArticleDetail()
   },
   methods: {
     getUserId () {
       let token = Constant.USER_ID_TOKEN
       this.loginId = this.cookie.get(token)
     },
-    getArticleDetail () {
+    getArticleDetail (articleId) {
       // 将数据放在当前组件的数据内
-      this.articleId = this.$route.query.article_id
       let params = {
-        articleId: this.articleId
+        articleId: articleId
       }
       let url = RequestUrl.GET_ARTICLE_DETAIL
       this.http.postForm(url, params).then(res => {
@@ -151,9 +149,11 @@ export default {
         if (res.code === '1000') {
           this.articleTypeOptions = res.data
         }
+        let articleId = this.$route.query.article_id
+        alert(articleId)
+        this.getArticleDetail(articleId)
       })
     },
-
     uploadArticleFromServer () {
       this.getUserId()
       if (this.loginId === null) {

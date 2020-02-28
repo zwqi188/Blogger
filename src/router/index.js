@@ -10,7 +10,8 @@ export default new Router({
     {
       path: '/404',
       component: () => import('@/page/404Page/index'),
-      hidden: true
+      hidden: true,
+      meta: {keepAlive: true}
     },
     {
       path: '',
@@ -75,18 +76,21 @@ export default new Router({
       children: [{
         path: 'sign',
         name: 'vue_sign',
-        component: () => import('@/page/signInPage/sign')
+        component: () => import('@/page/signInPage/sign'),
+        meta: {keepAlive: true}
       },
       {
         path: 'login',
         name: 'vue_login',
-        component: () => import('@/page/signInPage/login')
+        component: () => import('@/page/signInPage/login'),
+        meta: {keepAlive: true}
       }]
     },
     {
       path: '*',
       redirect: '/404',
-      hidden: true
+      hidden: true,
+      meta: {keepAlive: true}
     }
   ]
 })
