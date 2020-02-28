@@ -6,7 +6,7 @@
           <div class="blogContent blogContent-left css-width8">
             <div class="blog-title" @click="getBlogDetail(item.id)">{{item.articleTitle}}</div>
             <div class="blog-article">{{item.articleInfo}}</div>
-            <div class="blog-status"> 作者：{{item.userName}}
+            <div class="blog-status"> 作者：{{item.userName}}<span class="css-master" v-show="item.isAdmin">博主</span>
               <font-awesome-icon class="css_icon" icon="comments" fixed-width/>{{item.articleReplay}}回复
               <font-awesome-icon class="css_icon" icon="thumbs-up" fixed-width/>{{item.articleLike}}点赞
             </div>
@@ -100,7 +100,13 @@ export default {
   .footer-relate2 {
     padding-bottom: 60px;
   }
-
+  .css-master {
+    border: 1px solid #ccc;
+    padding: 5px;
+    color: red;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
   .css_blog_list {
     height: 120px;
     display: block;

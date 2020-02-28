@@ -150,8 +150,9 @@ export default {
           this.articleTypeOptions = res.data
         }
         let articleId = this.$route.query.article_id
-        alert(articleId)
-        this.getArticleDetail(articleId)
+        if (articleId) {
+          this.getArticleDetail(articleId)
+        }
       })
     },
     uploadArticleFromServer () {

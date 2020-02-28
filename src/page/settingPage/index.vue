@@ -38,7 +38,7 @@
         <div class="css-width10 css-form">
           <el-form ref="form" label-width="80px">
             <el-form-item class="css-width10" label="昵称">
-              <el-input v-model="form.loginName"></el-input>
+              <el-input v-model="form.userName"></el-input>
             </el-form-item>
             <el-form-item class="css-width10" label="性别">
               <el-radio-group class="css-userGender" v-model="form.userGender">
@@ -106,7 +106,7 @@
               <el-button type="info" @click="packageFile()">下载我的所有文章</el-button>
             </el-form-item>
             <el-form-item class="css-width10" label="永久删除帐号">
-              <el-button type="danger">删除账号</el-button>
+              <el-button type="danger" @click="deleteUser()">删除账号</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -234,18 +234,8 @@ export default {
     cleanUpdatePasswordForm () {
       this.updatePasswordForm = {}
     },
-    openMessage () {
-      this.$prompt('请输入图片地址', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      }).then(({ value }) => {
-        this.avatarUrl = value
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消输入'
-        })
-      })
+    deleteUser () {
+      this.$message.error('暂不支持此功能')
     }
   }
 }
