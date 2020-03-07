@@ -21,11 +21,6 @@ export default new Router({
       path: '/main',
       component: MainPage,
       children: [{
-        path: 'hotlist',
-        name: 'vue_hotlist',
-        component: () => import('@/components/hotlist')
-      },
-      {
         path: 'detail',
         name: 'vue_detail',
         component: () => import('@/page/detailPage/index')

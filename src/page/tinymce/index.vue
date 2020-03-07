@@ -56,7 +56,6 @@ import 'tinymce/plugins/colorpicker'
 import 'tinymce/plugins/textcolor'
 import RequestUrl from '@/utils/RequestUrl'
 import Constant from '@/utils/Constant'
-import previewPic from '@/assets/images/avatar.jpg'
 
 export default {
   name: 'index',
@@ -72,7 +71,6 @@ export default {
       uploadUrl: process.env.BASE_API + RequestUrl.UPLOAD_IMAGE,
       options: [],
       isHidden: true,
-      preview: previewPic,
       init: {
         language_url: 'static/tinymce/langs/zh_CN.js',
         language: 'zh_CN',

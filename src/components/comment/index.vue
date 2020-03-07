@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import avatarUrl from '@/assets/images/avatar.jpg'
 import RequestUrl from '@/utils/RequestUrl'
 import Constant from '@/utils/Constant'
 import CommonUtil from '@/utils/CommonUtil'
@@ -42,7 +41,7 @@ export default {
   name: 'detailPage',
   data () {
     return {
-      circleUrl: avatarUrl,
+      circleUrl: '',
       loginId: '',
       articleId: '',
       commentList: null,
