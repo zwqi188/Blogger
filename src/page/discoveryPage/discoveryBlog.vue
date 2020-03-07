@@ -29,10 +29,10 @@
             layout="prev, pager, next">
           </el-pagination>
           <div class="footer-relate css-width10">
-            关于箴言 | 联系我们 | 说明
+            关于箴言 | 联系博主 | 说明
           </div>
           <div class="footer-relate footer-relate2 css-width10">
-            ©2019-2020 科技公司 / 箴言 / 沪ICP备645657657号9 /
+            ©2019-2020  / 箴言 / 皖ICP备20002817号
           </div>
         </div>
       </div>
