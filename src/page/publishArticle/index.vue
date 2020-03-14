@@ -8,7 +8,7 @@
       文章正文:<span class="span-must">*</span>
     </div>
     <div class="css-width10">
-      <editor id='tinymce' v-model='form.articleContent' :init='init'></editor>
+      <v-markDown v-model="content"></v-markDown>
     </div>
     <div class="css-width10 tinymce-label upload-pic">
       <div class="css-width1">封面图:</div>
@@ -42,18 +42,7 @@
 </template>
 
 <script>
-import tinymce from 'tinymce/tinymce'
-import Editor from '@tinymce/tinymce-vue'
-import 'tinymce/themes/silver/theme'
-import 'tinymce/plugins/image'
-import 'tinymce/plugins/link'
-import 'tinymce/plugins/code'
-import 'tinymce/plugins/table'
-import 'tinymce/plugins/lists'
-import 'tinymce/plugins/contextmenu'
-import 'tinymce/plugins/wordcount'
-import 'tinymce/plugins/colorpicker'
-import 'tinymce/plugins/textcolor'
+import markDown from '@/components/markdown/index'
 import RequestUrl from '@/utils/RequestUrl'
 import Constant from '@/utils/Constant'
 
@@ -62,64 +51,14 @@ export default {
   data: function () {
     return {
       form: {
-        articleContent: '请输入内容'
       },
-      articleTitle: '',
-      loginId: '',
-      articleType: 2,
-      articleTypeOptions: null,
-      uploadUrl: process.env.BASE_API + RequestUrl.UPLOAD_IMAGE,
-      options: [],
-      isHidden: true,
-      init: {
-        language_url: 'static/tinymce/langs/zh_CN.js',
-        language: 'zh_CN',
-        skin_url: 'static/tinymce/skins/ui/oxide',
-        height: 800,
-        plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | table | link image code | removeformat',
-        branding: false,
-        menubar: false,
-        images_upload_base_path: '',
-        images_upload_credentials: false,
-        automatic_uploads: false,
-        images_upload_url: process.env.BASE_API + RequestUrl.UPLOAD_IMAGE,
-        file_picker_types: 'image',
-        // 上传图片回调
-        images_upload_handler: function (blobInfo, success, failure) {
-          var xhr, formData
-          xhr = new XMLHttpRequest()
-          xhr.withCredentials = false
-          xhr.open('POST', process.env.BASE_API + RequestUrl.UPLOAD_IMAGE)
-          formData = new FormData()
-          formData.append('file', blobInfo.blob())
-          xhr.onload = function (e) {
-            var json
-            if (xhr.status !== 200) {
-              failure('HTTP Error: ' + xhr.status)
-              return
-            }
-            json = JSON.parse(this.responseText)
-
-            if (!json || typeof json.location !== 'string') {
-              failure('Invalid JSON: ' + xhr.responseText)
-              return
-            }
-            success(json.location)
-            this.form.articlePic = json.location
-          }
-          xhr.send(formData)
-        }
-      }
+      content: ''
     }
   },
   components: {
-    Editor
+    'v-markDown': markDown
   },
   mounted () {
-    tinymce.init({})
-  },
-  created () {
     this.getArticleType()
   },
   methods: {
@@ -159,20 +98,21 @@ export default {
         this.$message.warning('请先登录！')
         return
       }
-      let ed = tinymce.activeEditor
-      let e = ed.getBody()
-      ed.selection.select(e)
-      let text = ed.selection.getContent({ 'format': 'text' })
-      let articleCount = text.length
-      let articleInfo = text.substring(0, 100) + '...'
+      // let ed = TinyMce.activeEditor
+      // let e = ed.getBody()
+      // ed.selection.select(e)
+      // let text = ed.selection.getContent({ 'format': 'text' })
+      let articleCount = this.content.length
+      let articleInfo = this.content.substring(0, 100) + '...'
       if (!this.form.articleTitle) {
         alert('请输入文章标题')
         return
       }
-      if (!this.form.articleContent) {
+      if (!this.content) {
         alert('请输入文章内容')
         return
       }
+      this.form.articleContent = this.content
       this.form.articleCount = articleCount
       this.form.articleInfo = articleInfo
       this.form.userId = this.loginId
@@ -180,9 +120,7 @@ export default {
       this.http.postForm(url, this.form).then(res => {
         if (res.code === '1000') {
           this.$message.success(res.message)
-          this.form = {
-            articleContent: '请输入内容'
-          }
+          this.form = {}
         } else {
           this.$message.error(res.message)
         }

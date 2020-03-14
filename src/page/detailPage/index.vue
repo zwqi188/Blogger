@@ -14,23 +14,16 @@
     </div>
     <div class="article_detail css-width10" v-html="articleDetail.articleContent">
     </div>
+    <div class="article_thumb css-width10">
+      <div class="article_thumb_left css-width5">
+        <el-button type="primary" circle @click="gotoLike(articleDetail.id)">赞</el-button>
+        <el-button type="success" icon="el-icon-star-off" circle @click="gotoDisLike(articleDetail.id)"></el-button>
+        <el-button type="info" icon="el-icon-edit" circle @click="gotoEdit(articleDetail.id)"></el-button>
+      </div>
+    </div>
     <div class="recommend-comment css-width10">
       <v-comment></v-comment>
     </div>
-    <el-menu collapse="true" class="article-function">
-      <el-menu-item index="1" @click="gotoLike(articleDetail.id)">
-        <font-awesome-icon icon="thumbs-up" size="lg" />
-        <span slot="title">点赞</span>
-      </el-menu-item>
-      <el-menu-item index="2" @click="gotoDisLike(articleDetail.id)">
-        <font-awesome-icon icon="thumbs-down" size="lg" />
-        <span slot="title">踩</span>
-      </el-menu-item>
-      <el-menu-item index="3" @click="gotoEdit(articleDetail.id)">
-        <i class="el-icon-edit"></i>
-        <span slot="title">编辑</span>
-      </el-menu-item>
-    </el-menu>
   </div>
 </template>
 
@@ -153,44 +146,28 @@ export default {
   float: left;
   height: 70px;
 }
+
+.article_thumb {
+  float: left;
+  height: 70px;
+}
+.article_thumb div {
+  float: left;
+}
+.article_thumb_left {
+  text-align: left;
+}
+.article_thumb_right {
+  float: right;
+}
 .article_detail {
   float: left;
 }
 .recommend-comment {
   float: left;
 }
-.thumbs {
-  width: 100px;
-  float: left;
-}
-.thumbs:hover {
-  color: #EB6E5E;
-}
-.thumbs-right {
-  width: 100px;
-  float: right;
-}
-.recommend-thumbs {
-  float: left;
-  height: 70px;
-  color: #99a9bf;
-}
-.recommend-click{
-  font-family: "Arial Black";
-  font-size: 14px;
-  color: #46C039;
-}
 .recommend-maincontent{
   font-size: 14px;
   color: #969696;
-}
-.article-function {
-  position: fixed;
-  left: 8%;
-  top: 30%;
-}
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
 }
 </style>

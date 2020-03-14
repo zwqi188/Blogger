@@ -14,6 +14,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 import $http from './utils/Axios.js'
 import $cookie from 'vue-cookies'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
 
 // 定义全局变量
 Vue.prototype.http = $http

@@ -32,8 +32,8 @@ export default new Router({
       },
       {
         path: 'editor',
-        name: 'vue_editor',
-        component: () => import('@/page/tinymce/index')
+        name: 'vue_publishArticle',
+        component: () => import('@/page/publishArticle/index')
       },
       {
         path: 'concern',
@@ -61,7 +61,7 @@ export default new Router({
     },
     {
       path: '/editor',
-      component: () => import('@/page/tinymce/index'),
+      component: () => import('@/page/publishArticle/index'),
       hidden: true
     },
     {
