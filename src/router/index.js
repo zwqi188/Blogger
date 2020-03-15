@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 import MainPage from '@/page/mainPage/index'
+import H5MainPage from '@/page/h5_page/mainPage/index'
 
 Vue.use(Router)
 
@@ -16,6 +16,27 @@ export default new Router({
     {
       path: '',
       redirect: '/main/discovery'
+    },
+    {
+      path: '/editor',
+      component: () => import('@/page/publishArticle/index'),
+      hidden: true
+    },
+    {
+      path: '/sign',
+      component: () => import('@/page/signInPage/sign'),
+      hidden: true
+    },
+    {
+      path: '/login',
+      component: () => import('@/page/signInPage/login'),
+      hidden: true
+    },
+    {
+      path: '*',
+      redirect: '/404',
+      hidden: true,
+      meta: {keepAlive: true}
     },
     {
       path: '/main',
@@ -60,25 +81,19 @@ export default new Router({
       ]
     },
     {
-      path: '/editor',
-      component: () => import('@/page/publishArticle/index'),
-      hidden: true
-    },
-    {
-      path: '/sign',
-      component: () => import('@/page/signInPage/sign'),
-      hidden: true
-    },
-    {
-      path: '/login',
-      component: () => import('@/page/signInPage/login'),
-      hidden: true
-    },
-    {
-      path: '*',
-      redirect: '/404',
-      hidden: true,
-      meta: {keepAlive: true}
+      path: '/m_main',
+      component: H5MainPage,
+      children: [{
+        path: 'discovery',
+        name: 'vue_discovery',
+        component: () => import('@/page/h5_page/descovery/index')
+      },
+      {
+        path: 'detail',
+        name: 'vue_detail',
+        component: () => import('@/page/h5_page/detailPage/index')
+      }
+      ]
     }
   ]
 })
