@@ -75,7 +75,7 @@ export default {
     },
     getBlogDetail (id) {
       this.$router.push({path: '/m_main/detail', query: {article_id: id}})
-    },
+    }
   }
 }
 </script>
