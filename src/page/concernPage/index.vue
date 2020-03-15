@@ -64,7 +64,6 @@
 
 <script>
 import RequestUrl from '@/utils/RequestUrl'
-import Constant from '@/utils/Constant'
 
 export default {
   name: 'concernPage',
@@ -84,23 +83,17 @@ export default {
       selectUser: ''
     }
   },
-  created () {
+  mounted () {
+    this.loginId = localStorage.user_id_token
     this.getfollow()
   },
   methods: {
-    getUserId () {
-      let token = Constant.USER_ID_TOKEN
-      this.loginId = this.cookie.get(token)
-    },
     getfollow () {
-      this.getUserId()
       if (this.loginId === null) {
         this.$message.warning('请先登录！')
         return
       }
-      let params = {
-        userId: this.loginId
-      }
+      let params = {}
       let url = RequestUrl.QUERY_FOLLOW
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
@@ -114,9 +107,9 @@ export default {
       this.hasClick = true
       this.selectUser = userId
       let params = {
-        userId: userId
+        queryUserId: userId
       }
-      let url = RequestUrl.QUERY_USER
+      let url = RequestUrl.QUERY_USER_BY_ID
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
           this.user = res.data

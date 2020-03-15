@@ -19,6 +19,7 @@ import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
 // 定义全局变量
+Vue.prototype.global = router
 Vue.prototype.http = $http
 Vue.prototype.cookie = $cookie
 library.add(fas, far, fab)

@@ -108,13 +108,13 @@ export default {
     margin-left: 10px;
   }
   .css_blog_list {
-    height: 120px;
+    height: 150px;
     display: block;
   }
 
   .css_blog_list li {
     list-style: none;
-    height: 120px;
+    height: 150px;
     margin-left: 10px;
   }
 

@@ -1,14 +1,26 @@
 <template>
   <div>
-    <div class="login-form">
-      <el-input placeholder="手机号或邮箱" v-model="loginName">
-        <template slot="prepend"><i class="el-icon-user-solid"></i></template>
-      </el-input>
-      <el-input placeholder="请输入密码" v-model="password" show-password>
-        <template slot="prepend"><i class="el-icon-lock"></i></template>
-      </el-input>
-      <v-slider v-model="value"/>
-      <el-button class="css-login-btn" type="success" icon="el-icon-search" @click="login()">登录</el-button>
+    <div class="css-width10">
+      <div class="css-width2">
+        <a href="#/" class="css-title-login">箴言</a>
+      </div>
+      <div class="css-width8">
+      </div>
+    </div>
+    <div class="css-width10">
+      <div class="login_form">
+          <el-input placeholder="手机号或邮箱" v-model="loginName">
+            <template slot="prepend"><i class="el-icon-user-solid"></i></template>
+          </el-input>
+          <el-input placeholder="请输入密码" v-model="password" show-password>
+            <template slot="prepend"><i class="el-icon-lock"></i></template>
+          </el-input>
+          <v-slider v-model="value"/>
+          <el-button class="css-login-btn" type="success" icon="el-icon-search" @click="login()">登录</el-button>
+      </div>
+    </div>
+    <div class="showbody">
+      <router-view/>
     </div>
   </div>
 </template>
@@ -17,7 +29,6 @@
 import SliderVerificationCode from '@/components/sliderVerificationCode/index'
 import MD5 from 'js-md5'
 import RequestUrl from '@/utils/RequestUrl'
-import Constant from '@/utils/Constant'
 
 export default {
   name: 'login',
@@ -63,9 +74,8 @@ export default {
       let url = RequestUrl.USER_LOGIN
       this.http.postForm(url, params).then(res => {
         if (res.code === '1000') {
-          let token = Constant.USER_ID_TOKEN
           // 默认浏览器关闭，自动清理
-          this.cookie.set(token, res.data)
+          localStorage.user_id_token = res.data
           this.$message.success(res.message + '，正在登录!')
           setTimeout(() => { this.$router.push({path: '/main/discovery'}) }, 1000)
         } else {
@@ -80,7 +90,14 @@ export default {
 </script>
 
 <style scoped>
-.login-form {
+.css-title-login {
+  font-family: "Microsoft YaHei";
+  font-size: 42px;
+  font-weight: bold;
+  color: #EB6E5E;
+  text-decoration: none;
+}
+.login_form {
   width: 400px;
   margin: 0 auto;
   padding-top: 40px;

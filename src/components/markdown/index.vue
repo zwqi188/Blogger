@@ -1,7 +1,7 @@
 <template>
   <div class="markdown">
     <div class="container">
-      <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="min-height: 600px"/>
+      <mavon-editor v-model="content" ref="md" @imgAdd="imgupload" @change="change" style="min-height: 600px"/>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     // 将图片上传到服务器，返回地址替换到md中
-    $imgAdd (pos, $file) {
+    imgupload (pos, $file) {
       let formdata = new FormData()
       this.http.post(RequestUrl.UPLOAD_IMAGE, formdata).then(res => {
         this.$refs.md.$img2Url(pos, res.location)
@@ -44,8 +44,8 @@ export default {
     // 所有操作都会被解析重新渲染
     change (value, render) {
       // render 为 markdown 解析后的结果[html]
-      // this.html = render
-      this.$emit('change', this.content)
+      this.html = render
+      this.$emit('change', this.html)
     }
   },
   mounted () {

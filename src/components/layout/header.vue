@@ -26,10 +26,7 @@
             </ul>
           </li>
           <li v-show="!isLogin">
-            <el-button-group>
-              <el-button type="info" icon="el-icon-s-custom" @click="gotoLogin()" circle>登录</el-button>
-              <el-button type="info" icon="el-icon-user" @click="gotoSignIn()" circle>注册</el-button>
-            </el-button-group>
+            <span @click="gotoLogin()" circle>登录</span>|<span @click="gotoSignIn()" circle>注册</span>
           </li>
           <li>
             <el-button type="danger" icon="el-icon-edit" @click="gotoEditor()" round>写文章</el-button>
@@ -41,7 +38,6 @@
 </template>
 
 <script>
-import Constant from '@/utils/Constant'
 import RequestUrl from '@/utils/RequestUrl'
 
 export default {
@@ -77,26 +73,30 @@ export default {
       this.$message.info('稍等，正在加载编辑器！')
     },
     gotoSignIn () {
-      this.$router.push({path: '/sign_in/sign'})
+      this.$router.push({path: '/sign'})
     },
     gotoLogin () {
-      this.$router.push({path: '/sign_in/login'})
+      this.$router.push({path: '/login'})
     },
     gotoSetting () {
       this.$router.push({path: '/main/setting'})
     },
     checkLogin () {
-      let token = Constant.USER_ID_TOKEN
-      if (this.cookie.get(token)) {
-        this.userId = this.cookie.get(token)
+      this.userId = localStorage.user_id_token
+      if (this.userId) {
         this.isLogin = true
       }
       this.queryUser()
     },
     loginOut () {
-      let token = Constant.USER_ID_TOKEN
-      this.cookie.remove(token)
-      this.isLogin = false
+      let params = {}
+      let url = RequestUrl.USER_LOGIN_OUT
+      this.http.postForm(url, params).then(res => {
+        if (res.code === '1000') {
+          localStorage.removeItem('user_id_token')
+          this.isLogin = false
+        }
+      })
     }
   }
 }

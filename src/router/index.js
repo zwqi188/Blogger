@@ -65,21 +65,14 @@ export default new Router({
       hidden: true
     },
     {
-      path: '/sign_in',
-      component: () => import('@/page/signInPage/index'),
-      hidden: true,
-      children: [{
-        path: 'sign',
-        name: 'vue_sign',
-        component: () => import('@/page/signInPage/sign'),
-        meta: {keepAlive: true}
-      },
-      {
-        path: 'login',
-        name: 'vue_login',
-        component: () => import('@/page/signInPage/login'),
-        meta: {keepAlive: true}
-      }]
+      path: '/sign',
+      component: () => import('@/page/signInPage/sign'),
+      hidden: true
+    },
+    {
+      path: '/login',
+      component: () => import('@/page/signInPage/login'),
+      hidden: true
     },
     {
       path: '*',
